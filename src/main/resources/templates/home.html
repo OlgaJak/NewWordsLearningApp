@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>New Words Learning App</title>
+</head>
+<body>
+<h1>Welcome to New words learning App!</h1>
+
+<form th:action="@{/register}" method="get">
+    <button type="submit">Sign In</button>
+</form>
+
+<form th:action="@{/login}" method="get">
+    <button type="submit">Login</button>
+</form>
+
+</body>
+</html>
