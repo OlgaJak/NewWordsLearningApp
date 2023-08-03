@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Регистрация</title>
+    <title>Register</title>
 </head>
 <body>
-<h1>Регистрация нового пользователя</h1>
+<h1>Register new user</h1>
 
 <form action="#" th:action="@{/register}" th:object="${user}" method="post">
+    <!-- Display error message if password and passwordConfirm do not match -->
+    <div th:if="${#fields.hasErrors('passwordConfirm')}" class="error-message">
+        <p th:each="error : ${#fields.errors('passwordConfirm')}" th:text="${error}"></p>
+    </div>
+
     <label for="name">Name:</label>
     <input type="text" id="name" th:field="*{name}" required>
     <br>

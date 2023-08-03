@@ -36,6 +36,7 @@ public class LoginController {
             return "redirect:/user-page";
         } else {
             // Invalid credentials, handle error or redirect back to login page
+            model.addAttribute("errorMessage", "Invalid email or password.");
             return "login-form";
         }
     }

@@ -1,5 +1,7 @@
 package com.newwordslearningapp.entity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -17,11 +19,13 @@ public class User {
     @Column(name= "email", unique = true)
     private String email;
 
-
     @Column(name= "password", length = 1000)
+    @Size(min = 5, message = "Minimum 5 symbols")
     private String password;
 
     @Transient
+    @NotEmpty(message = "The field cannot be empty")
+    @Size(min = 5, message = "Minimum 5 symbols")
     private String passwordConfirm;
 
 //    public User() {
