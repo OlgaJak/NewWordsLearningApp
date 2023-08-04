@@ -2,12 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 
 <head>
+    <meta charset="UTF-8">
     <title>Hello User!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <Link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<h1>Welcome, User<span th:text="${name}">User</span>!</h1>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out" />
-</form>
+<div class="container">
+    <h1>Welcome, User<span th:text="${name}">User</span>!</h1>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" class="btn btn-primary" value="Sign Out"/>
+    </form>
+</div>
 </body>
 </html>
