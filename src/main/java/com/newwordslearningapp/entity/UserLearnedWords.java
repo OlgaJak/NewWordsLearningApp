@@ -16,8 +16,8 @@ public class UserLearnedWords {
     private Date dateOfTask;
     @Column(name = "word")
     private String word;
-    @Column (name = "explanation")
-    private String explanation;
+    @Column (name = "definition")
+    private String definition;
     @Column(name = "phonetic")
     private String phonetic;
 
@@ -29,40 +29,5 @@ public class UserLearnedWords {
     @JoinColumn(name = "user_progress_id")
     private UserProgress userProgress;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_progress")
-//    private User id;
 
-
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public Date getDateOfTask() {
-//        return dateOfTask;
-//    }
-//
-//    public void setDateOfTask(Date dateOfTask) {
-//        this.dateOfTask = dateOfTask;
-//    }
-//
-//    public String getWord() {
-//        return word;
-//    }
-//
-//    public void setWord(String word) {
-//        this.word = word;
-//    }
-//
-//    public String getExplanation() {
-//        return explanation;
-//    }
-//
-//    public void setExplanation(String explanation) {
-//        this.explanation = explanation;
-//    }
 }
