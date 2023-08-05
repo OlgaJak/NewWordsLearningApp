@@ -23,6 +23,15 @@ public class UserLearnedWords {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "user_progress_id")
+    private UserProgress userProgress;
+
+//    @ManyToOne
+//    @JoinColumn(name = "user_progress")
+//    private User id;
+
+
 //    public Long getId() {
 //        return id;
 //    }

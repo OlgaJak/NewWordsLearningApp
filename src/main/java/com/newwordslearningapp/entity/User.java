@@ -23,11 +23,13 @@ public class User {
     @Size(min = 5, message = "Minimum 5 symbols")
     private String password;
 
+
     @Transient
     @NotEmpty(message = "The field cannot be empty")
     @Size(min = 5, message = "Minimum 5 symbols")
     private String passwordConfirm;
 
+    
 //    public User() {
 //    }
 //

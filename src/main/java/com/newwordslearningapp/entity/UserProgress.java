@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
+
 @Data
 @Entity(name = "user_progress")
 @Table
@@ -21,16 +23,20 @@ public class UserProgress {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "userProgress", cascade = CascadeType.ALL)
+    private List<UserLearnedWords> userLearnedWordsList;
 
-    public UserProgress(int id, Date dateOfTask, String wordsLearned) {
-        this.id = id;
-        this.dateOfTask = dateOfTask;
-        this.wordsLearned = wordsLearned;
-    }
 
-    public UserProgress() {
 
-    }
+//    public UserProgress(int id, Date dateOfTask, String wordsLearned) {
+//        this.id = id;
+//        this.dateOfTask = dateOfTask;
+//        this.wordsLearned = wordsLearned;
+//    }
+//
+//    public UserProgress() {
+//
+//    }
 
 //    public long getId() {
 //        return id;
