@@ -18,6 +18,8 @@ public class UserLearnedWords {
     private String word;
     @Column (name = "explanation")
     private String explanation;
+    @Column(name = "phonetic")
+    private String phonetic;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
