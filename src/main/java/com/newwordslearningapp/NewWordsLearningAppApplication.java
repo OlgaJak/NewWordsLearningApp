@@ -1,5 +1,6 @@
 package com.newwordslearningapp;
 
+import com.newwordslearningapp.JsonReader.ReadingData;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -21,7 +22,8 @@ public class NewWordsLearningAppApplication {
             // For example, print it:
 
             String description = String.valueOf(getWordAndExplanationFormApi(randomWord));
-            System.out.println("Random word from API: " + randomWord +description);
+            System.out.println("Random word from API: " + randomWord + description);
+            System.out.println(ReadingData.readData());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -29,7 +31,7 @@ public class NewWordsLearningAppApplication {
 
 
 
-
+// System.out.println("Random word from API: " + randomWord + description + ReadingData.readData(description));
 
 
 

@@ -24,7 +24,7 @@ public class WordAPIConnector {
         return response.body();
     }
 
-    public static StringBuffer getWordAndExplanationFormApi(String word)throws Exception{
+    public static String getWordAndExplanationFormApi(String word)throws Exception{
         URL url = new URL("https://api.dictionaryapi.dev/api/v2/entries/en/"+word);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
@@ -37,7 +37,7 @@ public class WordAPIConnector {
         in.close();
         con.disconnect();
 
-        return response;
+        return response.toString();
     }
 
 }

@@ -16,8 +16,10 @@ public class UserLearnedWords {
     private Date dateOfTask;
     @Column(name = "word")
     private String word;
-    @Column (name = "explanation")
-    private String explanation;
+    @Column (name = "definition")
+    private String definition;
+    @Column(name = "phonetic")
+    private String phonetic;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
