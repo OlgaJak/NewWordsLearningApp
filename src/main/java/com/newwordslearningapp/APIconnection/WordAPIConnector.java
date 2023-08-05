@@ -1,6 +1,10 @@
 package com.newwordslearningapp.APIconnection;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -18,6 +22,22 @@ public class WordAPIConnector {
         System.out.println(response.body());
 
         return response.body();
+    }
+
+    public static StringBuffer getWordAndExplanationFormApi(String word)throws Exception{
+        URL url = new URL("https://api.dictionaryapi.dev/api/v2/entries/en/"+word);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        con.disconnect();
+
+        return response;
     }
 
 }
