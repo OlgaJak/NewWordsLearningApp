@@ -1,21 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Learning</title>
 </head>
 <body>
-
-<h1> New words for today:</h1>
-<!-- Create the table -->
-<table>
-    <tr>
-        <td th:class="${word}"> </td>
-        <td>[Phonetics]</td>
-        <td> Definition</td>
-    </tr>
-</table>
-
+<h1>Learn new words</h1>
+<p>Word: <span th:text="${word}"></span></p>
+<p>Definition: <span th:text="${definition}"></span></p>
+<p>Phonetic: <span th:text="${phonetic}"></span></p>
+</div>
 <button type="submit" class="btn btn-primary">Next word</button>
 
 </body>

@@ -1,7 +1,6 @@
 package com.newwordslearningapp;
 
-import com.newwordslearningapp.APIconnection.WordAPIConnector;
-import com.newwordslearningapp.JsonReader.ReadingData;
+import com.newwordslearningapp.service.ReadingDataService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -24,22 +23,14 @@ public class NewWordsLearningAppApplication {
             String description = String.valueOf(getWordAndExplanationFormApi(randomWord));
 
             String jsonString = description;
-            ReadingData word = new ReadingData();
+            ReadingDataService word = new ReadingDataService();
             word.readData(jsonString);
+            System.out.println(description);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-
-
-// System.out.println("Random word from API: " + randomWord + description + ReadingData.readData(description));
-
-
-
-
-
     }
-
 }
