@@ -1,5 +1,6 @@
 package com.newwordslearningapp;
 
+import com.newwordslearningapp.APIconnection.WordAPIConnector;
 import com.newwordslearningapp.JsonReader.ReadingData;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +15,6 @@ public class NewWordsLearningAppApplication {
 
         SpringApplication.run(NewWordsLearningAppApplication.class, args);
 
-
         //testing if 1 api giving random words is working
         try {
             String randomWord = getWordFromApi();
@@ -22,8 +22,11 @@ public class NewWordsLearningAppApplication {
             // For example, print it:
 
             String description = String.valueOf(getWordAndExplanationFormApi(randomWord));
-            System.out.println("Random word from API: " + randomWord + description);
-            System.out.println(ReadingData.readData());
+
+            String jsonString = description;
+            ReadingData word = new ReadingData();
+            word.readData(jsonString);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
