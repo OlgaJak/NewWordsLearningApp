@@ -40,4 +40,10 @@ public class WordAPIConnector {
         return response.toString();
     }
 
+    // Method for generating a new random word if current work explanation does not exist
+    public static String getRandomWordAndExplanationFromApi() throws Exception {
+        String randomWord = getWordFromApi();
+        return getWordAndExplanationFormApi(randomWord);
+    }
+
 }

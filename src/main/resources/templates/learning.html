@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Learning</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <Link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<h1>Learn new words</h1>
-<p>Word: <span th:text="${word}"></span></p>
-<p>Definition: <span th:text="${definition}"></span></p>
-<p>Phonetic: <span th:text="${phonetic}"></span></p>
+<div class="p-2">
+    <h1>Learn new words</h1>
+    <p>Word: <span th:text="${word}"></span> (<span th:text="${partOfSpeech}"></span>)</p>
+    <p>Phonetic: [<span th:text="${phonetic}"></span>]</p>
+    <p>Definition: <span th:text="${definition}"></span></p>
 </div>
 <button type="submit" class="btn btn-primary">Next word</button>
 

@@ -33,6 +33,7 @@ public class LearningController {
             readingDataService.readData(jsonString);
 
             model.addAttribute("word", readingDataService.getWord());
+            model.addAttribute("partOfSpeech", readingDataService.getPartOfSpeech());
             model.addAttribute("definition", readingDataService.getDefinition());
             model.addAttribute("phonetic", readingDataService.getPhonetic());
 
@@ -53,6 +54,7 @@ public class LearningController {
             readingDataService.readData(jsonString);
 
             model.addAttribute("word", readingDataService.getWord());
+            model.addAttribute("partOfSpeech", readingDataService.getPartOfSpeech());
             model.addAttribute("definition", readingDataService.getDefinition());
             model.addAttribute("phonetic", readingDataService.getPhonetic());
 
