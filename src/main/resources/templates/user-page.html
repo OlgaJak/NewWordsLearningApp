@@ -12,7 +12,15 @@
 <div class="container">
     <h1>Welcome, User<span th:text="${name}">User</span>!</h1>
     <form th:action="@{/logout}" method="post">
-        <input type="submit" class="btn btn-primary" value="Sign Out"/>
+        <input type="submit" class="btn btn-primary" value="Log Out"/>
+    </form>
+
+    <form th:action="@{/learning}" method="post">
+        <a type="button" class="btn btn-primary" href="learning.html"> Start learning </a>
+    </form>
+
+    <form th:action="@{/progress}" method="post">
+        <input type="submit" class="btn btn-primary" value="View my progress"/>
     </form>
 </div>
 </body>
