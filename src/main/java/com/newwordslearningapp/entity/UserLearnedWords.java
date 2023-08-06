@@ -21,6 +21,9 @@ public class UserLearnedWords {
     @Column(name = "phonetic")
     private String phonetic;
 
+    @Column(name="status")
+    private Boolean status;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
