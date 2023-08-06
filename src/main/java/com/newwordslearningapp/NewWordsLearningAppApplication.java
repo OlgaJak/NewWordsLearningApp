@@ -27,7 +27,7 @@ public class NewWordsLearningAppApplication {
             word.readData(jsonString);
 
             // See the JSON structure
-            System.out.println(description);
+            // System.out.println(description);
 
         } catch (Exception e) {
             e.printStackTrace();

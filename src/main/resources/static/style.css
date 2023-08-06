@@ -7,3 +7,9 @@
     width: 120px;
     margin: 10px auto auto auto;
 }
+
+.sm-text {
+    font-size: 14px;
+    font-weight: lighter;
+
+}

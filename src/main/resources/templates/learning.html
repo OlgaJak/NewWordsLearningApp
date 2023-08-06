@@ -10,11 +10,18 @@
 <body>
 <div class="p-2">
     <h1>Learn new words</h1>
-    <p>Word: <span th:text="${word}"></span> (<span th:text="${partOfSpeech}"></span>)</p>
+    <h3><span th:text="${word}"></span><span class="sm-text"> (<span th:text="${partOfSpeech}"></span>)</span></h3>
     <p>Phonetic: [<span th:text="${phonetic}"></span>]</p>
     <p>Definition: <span th:text="${definition}"></span></p>
 </div>
-<button type="submit" class="btn btn-primary">Next word</button>
+
+
+<p>The list of previous words:</p>
+<ul>
+    <li th:each="prevWord : ${previousWords}" th:text="${prevWord}"></li>
+</ul>
+
+<button th:action="@{/learning}" method="post" type="submit" class="btn btn-primary">Next word</button>
 
 </body>
 </html>
