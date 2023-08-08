@@ -4,6 +4,7 @@ package com.newwordslearningapp.controller;
 import com.newwordslearningapp.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String processRegistrationForm(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
+    public String processRegistrationForm(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model, HttpSession session) {
+
         // Check if there are validation errors
         if (bindingResult.hasErrors()) {
             return "registration-form"; // Return to the registration form with error messages
@@ -41,9 +43,10 @@ public class RegistrationController {
         }
 
         userService.registerUser(user);
-        // Add the username to the model
-        model.addAttribute("name", user.getName());
-        return "redirect:/user-page"; // Redirect to the user page after successful registration
+
+        session.setAttribute("userDisplayName", user.getName());
+
+        return "redirect:/user-page";
     }
 
     @PostMapping("/logout")

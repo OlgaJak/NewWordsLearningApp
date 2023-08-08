@@ -30,9 +30,9 @@ public class LoginController {
         User user = userService.findByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
             // User is authenticated, store user info in the session
-            session.setAttribute("loggedInUser", user);
-            // Add the user's email to the model
-            model.addAttribute("email", email);
+
+            session.setAttribute("userDisplayName", user.getName());
+
             return "redirect:/user-page";
         } else {
             // Invalid credentials, handle error or redirect back to login page
@@ -40,4 +40,5 @@ public class LoginController {
             return "login-form";
         }
     }
+
 }
