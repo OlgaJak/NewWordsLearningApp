@@ -25,57 +25,104 @@ public class LearningController {
     }
 
     List<String> wordsList = new ArrayList<>();
+
+    private int wordCount = 0;
+    private boolean showNextButton = true;
+    private boolean showTestButton = false;
+
+
     @GetMapping("/learning")
     public String getData(Model model) {
         // Testing if 1 API giving random words is working
-        try {
-            String randomWord = getWordFromApi();
-
-            // You can now use the 'randomWord' variable to do something with the word from the API.
-            // For example, get the JSON data and pass it to the view:
-            String jsonString = getWordAndExplanationFormApi(randomWord);
-            readingDataService.readData(jsonString);
-            String upperCaseWord = readingDataService.getWord().substring(0, 1).toUpperCase() + readingDataService.getWord().substring(1);
-
-            model.addAttribute("word",upperCaseWord);
-            model.addAttribute("partOfSpeech", readingDataService.getPartOfSpeech());
-            model.addAttribute("definition", readingDataService.getDefinition());
-            model.addAttribute("phonetic", readingDataService.getPhonetic());
-
-            // Add the current word to the previousWords list
-            wordsList.add(upperCaseWord);
-            model.addAttribute("previousWords", wordsList);
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Handle the exception appropriately or show an error message
+        if (wordCount >= 5) {
+            showNextButton = false;
+            showTestButton = true;
         }
+
+        if (showNextButton && wordCount < 5) {
+
+            try {
+                String randomWord = getWordFromApi();
+
+                // You can now use the 'randomWord' variable to do something with the word from the API.
+                // For example, get the JSON data and pass it to the view:
+                String jsonString = getWordAndExplanationFormApi(randomWord);
+                readingDataService.readData(jsonString);
+                String upperCaseWord = readingDataService.getWord().substring(0, 1).toUpperCase() + readingDataService.getWord().substring(1);
+
+                model.addAttribute("word", upperCaseWord);
+                model.addAttribute("partOfSpeech", readingDataService.getPartOfSpeech());
+                model.addAttribute("definition", readingDataService.getDefinition());
+                model.addAttribute("phonetic", readingDataService.getPhonetic());
+
+                // Add the current word to the previousWords list
+                wordsList.add(upperCaseWord);
+                model.addAttribute("previousWords", wordsList);
+
+                wordCount++;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Handle the exception appropriately or show an error message
+            }
+        }
+        model.addAttribute("showNextButton", showNextButton);
+        model.addAttribute("showTestButton", showTestButton);
         return "learning";
     }
+
 
     @PostMapping("/learning")
-    public String showData(Model model, @RequestParam String randomWord) {
-        // Here, you can handle the form submission
-        // For example, if you want to get the data for the submitted word:
+    public String showData(Model model, @RequestParam String action) {
+        if ("next".equals(action)) {
+            if (wordCount < 5) {
+                try {
+                    String randomWord = getWordFromApi();
+                    String jsonString = getWordAndExplanationFormApi(randomWord);
+                    readingDataService.readData(jsonString);
+                    String upperCaseWord = readingDataService.getWord().substring(0, 1).toUpperCase() + readingDataService.getWord().substring(1);
 
-        try {
-            String jsonString = getWordAndExplanationFormApi(randomWord);
-            readingDataService.readData(jsonString);
-            String upperCaseWord = readingDataService.getWord().substring(0, 1).toUpperCase() + readingDataService.getWord().substring(1);
+                    if (!jsonString.contains("No Definitions Found")) {
+                        model.addAttribute("word", upperCaseWord);
+                        model.addAttribute("partOfSpeech", readingDataService.getPartOfSpeech());
+                        model.addAttribute("definition", readingDataService.getDefinition());
+                        model.addAttribute("phonetic", readingDataService.getPhonetic());
 
-            model.addAttribute("word",upperCaseWord);
-            model.addAttribute("partOfSpeech", readingDataService.getPartOfSpeech());
-            model.addAttribute("definition", readingDataService.getDefinition());
-            model.addAttribute("phonetic", readingDataService.getPhonetic());
+                        wordsList.add(upperCaseWord);
+                        model.addAttribute("previousWords", wordsList);
 
-            // Add the current word to the previousWords list
-            wordsList.add(upperCaseWord);
-            model.addAttribute("previousWords", wordsList);
+                        wordCount++;
+                    } else {
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Handle the exception appropriately or show an error message
+                        return showData(model, action);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+            }
+        } else if ("test".equals(action)) {
+
+            return "test";
         }
+
+        if (wordCount >= 5) {
+            showNextButton = false;
+            showTestButton = true;
+        }
+
+        model.addAttribute("showNextButton", showNextButton);
+        model.addAttribute("showTestButton", showTestButton);
 
         return "learning";
     }
+
+
+    @GetMapping("test")
+    public String TestPage() {
+        return "test";
+    }
 }
+
+
+

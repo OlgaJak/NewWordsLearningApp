@@ -40,5 +40,4 @@ public class LoginController {
             return "login-form";
         }
     }
-
 }
