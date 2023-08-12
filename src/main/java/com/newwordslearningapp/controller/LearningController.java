@@ -5,6 +5,7 @@ import com.newwordslearningapp.entity.User;
 import com.newwordslearningapp.entity.UserLearnedWords;
 import com.newwordslearningapp.service.ReadingDataService;
 import com.newwordslearningapp.service.UserLearnedWordsService;
+import com.newwordslearningapp.service.WordExplanationService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,6 @@ import static com.newwordslearningapp.APIconnection.WordAPIConnector.getWordFrom
 @Controller
 public class LearningController {
 
-
     private final ReadingDataService readingDataService;
     private final UserLearnedWordsService userLearnedWordsService;
 
@@ -32,7 +32,9 @@ public class LearningController {
     public LearningController(ReadingDataService readingDataService, UserLearnedWordsService userLearnedWordsService) {
         this.readingDataService = readingDataService;
         this.userLearnedWordsService = userLearnedWordsService;
+
     }
+
 
     List<String> wordsList = new ArrayList<>();
 
@@ -142,8 +144,8 @@ public class LearningController {
                     e.printStackTrace();
                 }
             }
-        } else if ("test".equals(action)) {
-            return "test";
+        } else if ("quiz".equals(action)) {
+            return "quiz";
         }
 
         if (wordCount >= 5) {
@@ -157,10 +159,7 @@ public class LearningController {
         return "learning";
     }
 
-    @GetMapping("test")
-    public String TestPage() {
-        return "test";
-    }
+
 }
 
 

@@ -23,8 +23,9 @@
 
 <form th:action="@{/learning}" method="post">
     <button type="submit" name="action" value="next" class="btn btn-primary" th:if="${showNextButton}">Next word</button>
-    <button type="submit" name="action" value="test" class="btn btn-primary" th:if="${showTestButton}">Test</button>
+    <a href="/quiz" class="btn btn-primary" th:if="${showTestButton}">Take quiz</a>
 </form>
+
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" class="btn btn-primary" value="Log Out"/>

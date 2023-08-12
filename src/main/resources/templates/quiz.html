@@ -9,9 +9,22 @@
 </head>
 <body>
 <div class="p-2">
-    <h1>Test Page</h1>
-
+    <h1>Quiz</h1>
+    <form th:action="@{/submitQuiz}" method="post">
+        <ul>
+            <li th:each="option : ${quizResult}">
+                <label>
+                    <input type="radio" th:name="quizOption" th:value="${option}" />
+                    <span th:text="${option}"></span>
+                </label>
+            </li>
+        </ul>
+        <button type="submit">Submit Quiz</button>
+    </form>
 
 </div>
 </body>
 </html>
+
+
+
