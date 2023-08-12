@@ -21,13 +21,14 @@
     <li th:each="prevWord : ${previousWords}" th:text="${prevWord}"></li>
 </ul>
 
-<!--<button th:action="@{/learning}" method="post" type="submit" class="btn btn-primary">Next word</button>-->
-
 <form th:action="@{/learning}" method="post">
     <button type="submit" name="action" value="next" class="btn btn-primary" th:if="${showNextButton}">Next word</button>
     <button type="submit" name="action" value="test" class="btn btn-primary" th:if="${showTestButton}">Test</button>
 </form>
 
+<form th:action="@{/logout}" method="post">
+    <input type="submit" class="btn btn-primary" value="Log Out"/>
+</form>
 
 </body>
 </html>

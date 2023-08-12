@@ -49,8 +49,16 @@ public class RegistrationController {
         return "redirect:/user-page";
     }
 
+
     @PostMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
+    public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+        // Delete attributes from the session
+        session.removeAttribute("loggedInUser");
+
+        // Closes the session
+        session.invalidate();
+
         return "redirect:/home";
     }
 }
+
