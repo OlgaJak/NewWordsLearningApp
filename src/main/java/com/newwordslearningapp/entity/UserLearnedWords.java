@@ -32,5 +32,4 @@ public class UserLearnedWords {
     @JoinColumn(name = "user_progress_id")
     private UserProgress userProgress;
 
-
 }

@@ -33,6 +33,11 @@ public class LoginController {
 
             session.setAttribute("userDisplayName", user.getName());
 
+
+
+            session.setAttribute("loggedInUser", user); // Устанавливаем пользователя в сессию
+
+
             return "redirect:/user-page";
         } else {
             // Invalid credentials, handle error or redirect back to login page
