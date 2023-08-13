@@ -10,6 +10,7 @@
 <body>
 <div class="p-2">
     <h1>Quiz</h1>
+    <h2 th:text="'What is the definition of ' + ${quizWord} + '?'"></h2>
     <form th:action="@{/submitQuiz}" method="post">
         <ul>
             <li th:each="option : ${quizResult}">
