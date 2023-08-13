@@ -1,6 +1,7 @@
 package com.newwordslearningapp.controller;
 
 import com.newwordslearningapp.entity.User;
+import com.newwordslearningapp.entity.UserLearnedWords;
 import com.newwordslearningapp.service.WordExplanationService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +37,15 @@ public class QuizController {
             return "redirect:/login-form"; // Redirect to login page or handle as needed
         }
 
-        String quizWord = this.wordExplanationService.getWordForQuiz(user.getId());
-        List<String> result = this.wordExplanationService.getFourExplanationsForWord(user.getId());
+        List<UserLearnedWords> fiveWordsForQuiz = this.wordExplanationService.getFiveWordsForQuiz(user.getId());
+        // we take the word object so we can track the id and other info to identify which word was selected
+        // we can still return the word string below in attribute
+        UserLearnedWords quizWord = this.wordExplanationService.getWordForQuiz(fiveWordsForQuiz);
+        List<String> result = this.wordExplanationService.getFourExplanationsForWord(fiveWordsForQuiz, quizWord);
 
         System.out.println(quizWord);// Add the quiz result to the model to display it in the view
         model.addAttribute("quizResult", result);
-        model.addAttribute("quizWord", quizWord);
+        model.addAttribute("quizWord", quizWord.getWord());
 
         return "quiz";
     }

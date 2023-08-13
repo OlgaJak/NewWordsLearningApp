@@ -21,34 +21,35 @@ public class WordExplanationService {
         this.learningRepository = learningRepository;
     }
 
-    public String getWordForQuiz(Long userId){
-        List<UserLearnedWords> words = learningRepository.findTop5ByUserIdAndStatusEqualsOrderByDateOfTaskDesc(userId, true);
-
-        if (!words.isEmpty()) {
-            words.add(words.get(0));
-        }
+    public UserLearnedWords getWordForQuiz(List<UserLearnedWords> words){
         Collections.shuffle(words);
-        String quizWord = words.get(0).getWord();
-
-        System.out.println("Here is a new feature");
-        System.out.println(quizWord);
-        return quizWord;
+        return words.get(0);
     }
-    public List<String> getFourExplanationsForWord(Long userId) {
-        List<UserLearnedWords> lastFiveLearnedWords = learningRepository.findTop5ByUserIdAndStatusEqualsOrderByDateOfTaskDesc(userId, true);
+    public List<String> getFourExplanationsForWord(List<UserLearnedWords> lastFiveLearnedWords, UserLearnedWords quizWord){
         List<String> explanations = new ArrayList<>();
 
-        // Shuffle the list of last five learned words
-        Collections.shuffle(lastFiveLearnedWords);
         // Add the correct explanation
-        if (!lastFiveLearnedWords.isEmpty()) {
-            explanations.add(lastFiveLearnedWords.get(0).getDefinition());
-        }
+        explanations.add(quizWord.getDefinition());
+
+        // we remove the quiz word from the list of words we will use for random definitions
+        lastFiveLearnedWords.removeIf(word -> word.getId().equals(quizWord.getId()));
+
+        // Shuffle the list of last five learned words - wee keep this one so that the words sin the loop are ramdon each time
+        Collections.shuffle(lastFiveLearnedWords);
+
         // Add three incorrect explanations
-        for (int i = 1; i < Math.min(4, lastFiveLearnedWords.size()); i++) {
+        for (int i = 0; i < 3; i++) {
             explanations.add(lastFiveLearnedWords.get(i).getDefinition());
         }
+
+        // shuffle again so that the explanations are random and the answer is not always the first
+        Collections.shuffle(explanations);
+
         return explanations;
+    }
+
+    public List<UserLearnedWords> getFiveWordsForQuiz(Long userId) {
+        return learningRepository.findTop5ByUserIdAndStatusEqualsOrderByDateOfTaskDesc(userId, true);
     }
 }
 
