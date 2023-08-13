@@ -35,7 +35,7 @@ public class WordExplanationService {
         lastFiveLearnedWords.removeIf(word -> word.getId().equals(quizWord.getId()));
 
         // Shuffle the list of last five learned words - wee keep this one so that the words sin the loop are ramdon each time
-        Collections.shuffle(lastFiveLearnedWords);
+//        Collections.shuffle(lastFiveLearnedWords);
 
         // Add three incorrect explanations
         for (int i = 0; i < 3; i++) {

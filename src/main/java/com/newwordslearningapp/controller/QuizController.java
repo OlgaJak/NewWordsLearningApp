@@ -1,5 +1,6 @@
 package com.newwordslearningapp.controller;
 
+import com.newwordslearningapp.DTO.QuizScope;
 import com.newwordslearningapp.entity.User;
 import com.newwordslearningapp.entity.UserLearnedWords;
 import com.newwordslearningapp.service.WordExplanationService;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class QuizController {
@@ -40,12 +41,28 @@ public class QuizController {
         List<UserLearnedWords> fiveWordsForQuiz = this.wordExplanationService.getFiveWordsForQuiz(user.getId());
         // we take the word object so we can track the id and other info to identify which word was selected
         // we can still return the word string below in attribute
-        UserLearnedWords quizWord = this.wordExplanationService.getWordForQuiz(fiveWordsForQuiz);
-        List<String> result = this.wordExplanationService.getFourExplanationsForWord(fiveWordsForQuiz, quizWord);
+//        UserLearnedWords quizWord = this.wordExplanationService.getWordForQuiz(fiveWordsForQuiz);
 
-        System.out.println(quizWord);// Add the quiz result to the model to display it in the view
-        model.addAttribute("quizResult", result);
-        model.addAttribute("quizWord", quizWord.getWord());
+
+        ArrayList<QuizScope> quizOptions = new ArrayList<>();
+
+        for (UserLearnedWords userLearnedWords:fiveWordsForQuiz){
+            List<UserLearnedWords>clonedFiveWordsForQuiz = new ArrayList<>(fiveWordsForQuiz);
+            Collections.shuffle(clonedFiveWordsForQuiz);
+            List<String> result = this.wordExplanationService.getFourExplanationsForWord(clonedFiveWordsForQuiz, userLearnedWords);
+            quizOptions.add(new QuizScope(userLearnedWords.getWord(),result));
+
+        }
+
+//        System.out.println(quizWord);// Add the quiz result to the model to display it in the view
+//        model.addAttribute("quizResult", result);
+//        model.addAttribute("quizWord", quizWord.getWord());
+
+
+
+         //.getWord can be changed to aa the word itself object
+
+        model.addAttribute("quizOptions", quizOptions);
 
         return "quiz";
     }
