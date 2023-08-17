@@ -26,6 +26,8 @@
     <a href="/quiz" class="btn btn-primary" th:if="${showTestButton}">Take quiz</a>
 </form>
 
+<!--<a th:href="@{/user-page}" class="btn btn-primary">Go to Home Page</a>-->
+
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" class="btn btn-primary" value="Log Out"/>

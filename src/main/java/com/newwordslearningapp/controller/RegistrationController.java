@@ -1,6 +1,5 @@
 package com.newwordslearningapp.controller;
 
-
 import com.newwordslearningapp.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,8 +17,10 @@ import com.newwordslearningapp.service.UserService;
 public class RegistrationController {
     private UserService userService;
 
+
     public RegistrationController(UserService userService) {
         this.userService = userService;
+
     }
 
     @GetMapping("/register")
@@ -42,7 +43,16 @@ public class RegistrationController {
             return "registration-form"; // Return to the registration form with error message
         }
 
+        // Check if email is already registered
+        if (userService.findByEmail(user.getEmail()) != null) {
+            bindingResult.rejectValue("email", "email.duplicate", "Email is already registered");
+            return "registration-form"; // Return to the registration form with error message
+        }
+
         userService.registerUser(user);
+
+        // Set attribute loggedInUser in the session after registration
+        session.setAttribute("loggedInUser", user);
 
         session.setAttribute("userDisplayName", user.getName());
 

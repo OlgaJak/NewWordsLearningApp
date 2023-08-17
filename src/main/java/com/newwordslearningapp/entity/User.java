@@ -24,7 +24,7 @@ public class User {
     private String email;
 
     @Column(name= "password", length = 1000)
-    @Size(min = 5, message = "Minimum 5 symbols")
+    @Size(min = 5, message = "Password must be at least 5 characters")
     private String password;
 
 

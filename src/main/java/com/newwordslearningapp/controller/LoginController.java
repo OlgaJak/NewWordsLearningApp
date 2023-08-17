@@ -35,7 +35,7 @@ public class LoginController {
 
 
 
-            session.setAttribute("loggedInUser", user); // Устанавливаем пользователя в сессию
+            session.setAttribute("loggedInUser", user);
 
 
             return "redirect:/user-page";
