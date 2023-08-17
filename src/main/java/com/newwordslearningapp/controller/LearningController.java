@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.newwordslearningapp.APIconnection.WordAPIConnector.getWordAndExplanationFormApi;
 import static com.newwordslearningapp.APIconnection.WordAPIConnector.getWordFromApi;
+
 
 @Controller
 public class LearningController {
@@ -32,25 +35,46 @@ public class LearningController {
     public LearningController(ReadingDataService readingDataService, UserLearnedWordsService userLearnedWordsService) {
         this.readingDataService = readingDataService;
         this.userLearnedWordsService = userLearnedWordsService;
-
     }
 
-
-    List<String> wordsList = new ArrayList<>();
-
-    private int wordCount = 0;
-    private boolean showNextButton = true;
-    private boolean showTestButton = false;
+    //Creating lists for saving user data
+    private Map<User, List<String>> userWordsListMap = new HashMap<>();
+    private Map<User, Integer> userWordCountMap = new HashMap<>();
+    private Map<User, Boolean> userShowNextButtonMap = new HashMap<>();
+    private Map<User, Boolean> userShowTestButtonMap = new HashMap<>();
 
 
     @GetMapping("/learning")
     public String getData(Model model, HttpSession session) {
+        // Check if user is authenticated
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            return "redirect:/login";
+        }
+
+        // Initializing user data
+        if (!userWordsListMap.containsKey(loggedInUser)) {
+            userWordsListMap.put(loggedInUser, new ArrayList<>());
+            userWordCountMap.put(loggedInUser, 0);
+            userShowNextButtonMap.put(loggedInUser, true);
+            userShowTestButtonMap.put(loggedInUser, false);
+        }
+
+        // Get user data
+        List<String> wordsList = userWordsListMap.get(loggedInUser);
+        int wordCount = userWordCountMap.get(loggedInUser);
+        boolean showNextButton = userShowNextButtonMap.get(loggedInUser);
+        boolean showTestButton = userShowTestButtonMap.get(loggedInUser);
+
         if (showNextButton && wordCount < 5) {
             try {
                 String randomWord = getWordFromApi();
                 String jsonString = getWordAndExplanationFormApi(randomWord);
                 readingDataService.readData(jsonString);
                 String upperCaseWord = readingDataService.getWord().substring(0, 1).toUpperCase() + readingDataService.getWord().substring(1);
+
+                model.addAttribute("showNextButton", true);
+                model.addAttribute("showTestButton", false);
 
                 model.addAttribute("word", upperCaseWord);
                 model.addAttribute("partOfSpeech", readingDataService.getPartOfSpeech());
@@ -61,6 +85,11 @@ public class LearningController {
                 model.addAttribute("previousWords", wordsList);
 
                 wordCount++;
+
+                // Update user data
+                userWordCountMap.put(loggedInUser, wordCount);
+                userShowNextButtonMap.put(loggedInUser, showNextButton);
+                userShowTestButtonMap.put(loggedInUser, showTestButton);
 
                 // UserLearnedWords object creation
                 UserLearnedWords learnedWord = new UserLearnedWords();
@@ -73,13 +102,11 @@ public class LearningController {
                 learnedWord.setDateOfTask(dateOfTask);
 
                 learnedWord.setStatus(true);
+                learnedWord.setUser(loggedInUser);
 
-                User loggedInUser = (User) session.getAttribute("loggedInUser");
-                if (loggedInUser != null) {
-                    learnedWord.setUser(loggedInUser);
-                    userLearnedWordsService.saveLearnedWord(learnedWord);
-                    System.out.println("Saving learned word for user: " + loggedInUser.getEmail());
-                }
+                // Save learned word
+                userLearnedWordsService.saveLearnedWord(learnedWord);
+                System.out.println("Saving learned word for user: " + loggedInUser.getEmail());
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -87,30 +114,47 @@ public class LearningController {
         }
 
         if (wordCount >= 5) {
-            showNextButton = false;
-            showTestButton = true;
+            model.addAttribute("showNextButton", false);
+            model.addAttribute("showTestButton", true);
         }
 
-        model.addAttribute("showNextButton", showNextButton);
-        model.addAttribute("showTestButton", showTestButton);
         return "learning";
     }
 
 
     @PostMapping("/learning")
     public String showData(Model model, @RequestParam String action, HttpSession session) {
-        // Get user data through AuthenticationFilter
+        // Check if user is authenticated
         User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser == null) {
+            return "redirect:/login";
+        }
+
+        // Initializing user data
+        if (!userWordsListMap.containsKey(loggedInUser)) {
+            userWordsListMap.put(loggedInUser, new ArrayList<>());
+            userWordCountMap.put(loggedInUser, 0);
+            userShowNextButtonMap.put(loggedInUser, true);
+            userShowTestButtonMap.put(loggedInUser, false);
+        }
+
+        // Get user data
+        List<String> wordsList = userWordsListMap.get(loggedInUser);
+        int wordCount = userWordCountMap.get(loggedInUser);
+        boolean showNextButton = userShowNextButtonMap.get(loggedInUser);
+        boolean showTestButton = userShowTestButtonMap.get(loggedInUser);
 
         if ("next".equals(action)) {
             if (wordCount < 5) {
                 try {
-
                     String jsonString = WordAPIConnector.getRandomWordAndExplanationFromApi();
                     readingDataService.readData(jsonString);
                     String upperCaseWord = readingDataService.getWord().substring(0, 1).toUpperCase() + readingDataService.getWord().substring(1);
 
                     if (!jsonString.contains("No Definitions Found")) {
+                        model.addAttribute("showNextButton", true);
+                        model.addAttribute("showTestButton", false);
+
                         model.addAttribute("word", upperCaseWord);
                         model.addAttribute("partOfSpeech", readingDataService.getPartOfSpeech());
                         model.addAttribute("definition", readingDataService.getDefinition());
@@ -118,6 +162,13 @@ public class LearningController {
 
                         wordsList.add(upperCaseWord);
                         model.addAttribute("previousWords", wordsList);
+
+                        wordCount++;
+
+                        // Update user data
+                        userWordCountMap.put(loggedInUser, wordCount);
+                        userShowNextButtonMap.put(loggedInUser, showNextButton);
+                        userShowTestButtonMap.put(loggedInUser, showTestButton);
 
                         // UserLearnedWords object creation
                         UserLearnedWords learnedWord = new UserLearnedWords();
@@ -132,13 +183,11 @@ public class LearningController {
                         learnedWord.setStatus(true);
                         learnedWord.setUser(loggedInUser);
 
-                        // Save learned word through the service
+                        // Save learned word
                         userLearnedWordsService.saveLearnedWord(learnedWord);
                         System.out.println("Saving learned word for user: " + loggedInUser.getEmail());
-
-                        wordCount++;
                     } else {
-                        return showData(model, action, session);
+                        return "redirect:/learning";
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -149,18 +198,16 @@ public class LearningController {
         }
 
         if (wordCount >= 5) {
-            showNextButton = false;
-            showTestButton = true;
+            model.addAttribute("showNextButton", false);
+            model.addAttribute("showTestButton", true);
         }
-
-        model.addAttribute("showNextButton", showNextButton);
-        model.addAttribute("showTestButton", showTestButton);
 
         return "learning";
     }
 
-
 }
+
+
 
 
 

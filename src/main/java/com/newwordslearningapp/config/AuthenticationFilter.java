@@ -22,20 +22,16 @@ public class AuthenticationFilter implements Filter {
 
         // Check if the user is authenticated and has an active session
         if (user != null && session != null) {
-
             System.out.println("User authenticated: " + user.getEmail());
 
             // Allow the request to proceed
             chain.doFilter(request, response);
         } else if (!httpRequest.getRequestURI().endsWith("/login")) {
-
             // If not authenticated and not on the login page, redirect to login
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
-
         } else {
             // Allow the request to proceed for login page
             chain.doFilter(request, response);
         }
     }
 }
-
