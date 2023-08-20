@@ -13,3 +13,13 @@
     font-weight: lighter;
 
 }
+
+.correct {
+    color: green;
+    text-decoration: underline;
+}
+
+.incorrect {
+    color: red;
+    text-decoration: underline;
+}
