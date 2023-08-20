@@ -190,7 +190,9 @@ public class LearningController {
                         return "redirect:/learning";
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    // Handle the error and continue fetching new words
+                    System.err.println("Error fetching word data: " + e.getMessage());
+                    return "redirect:/learning"; // Redirect to retry fetching
                 }
             }
         } else if ("quiz".equals(action)) {

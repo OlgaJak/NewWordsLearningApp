@@ -4,7 +4,7 @@
 }
 
 .btn {
-    width: 120px;
+    min-width: 120px;
     margin: 10px auto auto auto;
 }
 
@@ -22,4 +22,8 @@
 .incorrect {
     color: red;
     text-decoration: underline;
+}
+
+ul {
+    list-style: none;
 }
