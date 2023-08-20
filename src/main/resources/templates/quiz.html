@@ -11,20 +11,21 @@
 <div class="p-2">
     <h1>Quiz</h1>
     <form th:action="@{/submitQuiz}" method="post">
-    <th:block th:each="item : ${quizOptions}">
-    <h2 th:text="'What is the definition of ' + ${item.getQuizWord()} + '?'"></h2>
-
-        <ul>
-            <li th:each="option : ${item.getListOfDefinitions()}">
-                <label>
-                    <input type="radio" th:name="quizOption" th:value="${option}" />
-                    <span th:text="${option}"></span>
-                </label>
-            </li>
-        </ul>
-
-    </th:block>
-    <button type="submit">Submit Quiz</button>
+        <th:block th:each="item, questionIndex : ${quizOptions}">
+            <h2 th:text="'Question ' + (${questionIndex.index + 1}) + ' - What is the definition of ' + ${item.getQuizWord()} + '?'"></h2>
+            <ul>
+                <li th:each="option : ${item.getListOfDefinitions()}">
+                    <label th:classappend="${score != null ? (option == item.correctAnswer ? 'correct' : (optionStat == 0 ? 'incorrect' : '')) : ''}">
+                        <input type="radio" th:name="${'word-' + questionIndex.index}" th:value="${option}"/>
+                        <span th:text="${option}"></span>
+                        <span th:if="${score != null && option == item.correctAnswer}">
+                <span>&#10004;</span>
+            </span>
+                    </label>
+                </li>
+            </ul>
+        </th:block>
+        <button type="submit">Submit Quiz</button>
     </form>
 </div>
 </body>

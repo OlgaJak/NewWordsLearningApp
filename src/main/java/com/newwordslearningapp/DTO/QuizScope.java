@@ -11,6 +11,7 @@ import java.util.List;
 public class QuizScope {
     private String quizWord;
     private List<String>listOfDefinitions;
+    private String correctAnswer;
 
 
 }

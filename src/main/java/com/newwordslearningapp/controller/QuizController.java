@@ -46,26 +46,84 @@ public class QuizController {
 
         ArrayList<QuizScope> quizOptions = new ArrayList<>();
 
-        for (UserLearnedWords userLearnedWords:fiveWordsForQuiz){
-            List<UserLearnedWords>clonedFiveWordsForQuiz = new ArrayList<>(fiveWordsForQuiz);
+        for (UserLearnedWords userLearnedWords : fiveWordsForQuiz) {
+            List<UserLearnedWords> clonedFiveWordsForQuiz = new ArrayList<>(fiveWordsForQuiz);
             Collections.shuffle(clonedFiveWordsForQuiz);
-            List<String> result = this.wordExplanationService.getFourExplanationsForWord(clonedFiveWordsForQuiz, userLearnedWords);
-            quizOptions.add(new QuizScope(userLearnedWords.getWord(),result));
-
+            List<String> result = wordExplanationService.getFourExplanationsForWord(clonedFiveWordsForQuiz, userLearnedWords);
+            String correctAnswer = userLearnedWords.getDefinition(); // Get the correct answer
+            quizOptions.add(new QuizScope(userLearnedWords.getWord(), result, correctAnswer));
         }
-
-//        System.out.println(quizWord);// Add the quiz result to the model to display it in the view
-//        model.addAttribute("quizResult", result);
-//        model.addAttribute("quizWord", quizWord.getWord());
-
-
-
-         //.getWord can be changed to aa the word itself object
 
         model.addAttribute("quizOptions", quizOptions);
 
         return "quiz";
     }
+
+
+    @PostMapping("/submitQuiz")
+    public String submitQuiz(@RequestParam Map<String, String> quizOptions, HttpSession session, Model model) {
+        User user = (User) session.getAttribute("loggedInUser");
+        if (user == null) {
+            return "redirect:/login-form";
+        }
+
+        int score = calculateScore(quizOptions, user.getId());
+        session.setAttribute("quizOptions", getQuizOptionsFromSession(session)); // Store quiz options in session
+
+        // Redirect to the quiz result page with the score parameter
+        return "redirect:/quiz-result?score=" + score;
+    }
+
+    @GetMapping("/quiz-result")
+    public String quizResult(@RequestParam(name = "score", required = true) int score, HttpSession session, Model model) {
+        // Retrieve quizOptions from session and set it in the model
+        List<QuizScope> quizOptions = getQuizOptionsFromSession(session);
+        model.addAttribute("quizOptions", quizOptions);
+        model.addAttribute("score", score);
+
+        return "quiz-result"; // Return the quiz result page
+    }
+
+
+
+    private int calculateScore(Map<String, String> quizOptions, Long userId) {
+        int score = 0;
+
+        List<UserLearnedWords> fiveWordsForQuiz = wordExplanationService.getFiveWordsForQuiz(userId);
+
+        for (UserLearnedWords word : fiveWordsForQuiz) {
+            String selectedOption = quizOptions.get(String.valueOf(word.getId()));
+            if (selectedOption != null && selectedOption.equals(word.getDefinition())) {
+                score++;
+            }
+        }
+
+        return score;
+    }
+
+    private List<QuizScope> getQuizOptionsFromSession(HttpSession session) {
+        List<QuizScope> quizOptions = new ArrayList<>();
+        User user = (User) session.getAttribute("loggedInUser");
+
+        if (user != null) {
+            List<UserLearnedWords> fiveWordsForQuiz = wordExplanationService.getFiveWordsForQuiz(user.getId());
+
+            for (UserLearnedWords userLearnedWords : fiveWordsForQuiz) {
+                List<UserLearnedWords> clonedFiveWordsForQuiz = new ArrayList<>(fiveWordsForQuiz);
+                Collections.shuffle(clonedFiveWordsForQuiz);
+                List<String> result = wordExplanationService.getFourExplanationsForWord(clonedFiveWordsForQuiz, userLearnedWords);
+                quizOptions.add(new QuizScope(userLearnedWords.getWord(), result, userLearnedWords.getDefinition()));
+            }
+        }
+
+        return quizOptions;
+    }
+
+
+
+
+
+
 
 
 }
