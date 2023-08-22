@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>My progress</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <Link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="p-2">
+
+  <h2>My Progress</h2>
+
+  <p>Date of Task: <span th:if="${userProgress != null}" th:text="${userProgress.dateOfTask}"></span></p>
+  <p>Words Learned: <span th:if="${userProgress != null}" th:text="${userProgress.wordsLearned}"></span></p>
+
+  <h2>Quiz Results</h2>
+  <p>Your Quiz Score: <span th:text="${quizScore}"></span></p>
+
+  <h3>Quiz Results Details:</h3>
+  <!-- Add your quiz results table here -->
+
+  <a type="button" class="btn btn-primary" href="/user-page">Back</a>
+
+
+</div>
+</body>
+</html>
+
+
+
+
