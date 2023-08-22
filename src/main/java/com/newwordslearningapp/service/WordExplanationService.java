@@ -3,6 +3,7 @@ package com.newwordslearningapp.service;
 import com.newwordslearningapp.entity.User;
 import com.newwordslearningapp.entity.UserLearnedWords;
 import com.newwordslearningapp.repository.LearningRepository;
+import com.newwordslearningapp.repository.UserLearnedWordsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +15,13 @@ import java.util.List;
 @Service
 public class WordExplanationService {
 
+    private final UserLearnedWordsRepository userLearnedWordsRepository;
     private LearningRepository learningRepository;
 
     @Autowired
-    public WordExplanationService(LearningRepository learningRepository) {
+    public WordExplanationService(LearningRepository learningRepository, UserLearnedWordsRepository userLearnedWordsRepository) {
         this.learningRepository = learningRepository;
+        this.userLearnedWordsRepository = userLearnedWordsRepository;
     }
 
     public UserLearnedWords getWordForQuiz(List<UserLearnedWords> words){
@@ -50,6 +53,11 @@ public class WordExplanationService {
 
     public List<UserLearnedWords> getFiveWordsForQuiz(Long userId) {
         return learningRepository.findTop5ByUserIdAndStatusEqualsOrderByDateOfTaskDesc(userId, true);
+    }
+
+    public UserLearnedWords getUserLearnedWordById(Long wordId) {
+        // Implement the logic to fetch a UserLearnedWords object by ID from your repository
+        return userLearnedWordsRepository.findById(wordId).orElse(null);
     }
 }
 

@@ -3,24 +3,34 @@ package com.newwordslearningapp.controller;
 import com.newwordslearningapp.DTO.QuizScope;
 import com.newwordslearningapp.entity.User;
 import com.newwordslearningapp.entity.UserLearnedWords;
+import com.newwordslearningapp.entity.UserProgress;
+import com.newwordslearningapp.repository.UserProgressRepository;
 import com.newwordslearningapp.service.WordExplanationService;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class QuizController {
     private final WordExplanationService wordExplanationService;
+    private final UserProgressRepository userProgressRepository;
+    private static final Logger logger = LoggerFactory.getLogger(QuizController.class);
+
 
     @Autowired
-    public QuizController(WordExplanationService wordExplanationService) {
+    public QuizController(WordExplanationService wordExplanationService, UserProgressRepository userProgressRepository) {
         this.wordExplanationService = wordExplanationService;
+        this.userProgressRepository = userProgressRepository;
     }
 
 
@@ -67,8 +77,14 @@ public class QuizController {
             return "redirect:/login-form";
         }
 
+        // Calculate the score
         int score = calculateScore(quizOptions, user.getId());
+
+        // Store quiz options in the session
         session.setAttribute("quizOptions", getQuizOptionsFromSession(session)); // Store quiz options in session
+
+        // Call the method to save correctly answered words
+        saveCorrectlyAnsweredWords(user.getId(), quizOptions, session);
 
         // Redirect to the quiz result page with the score parameter
         return "redirect:/quiz-result?score=" + score;
@@ -118,12 +134,43 @@ public class QuizController {
 
         return quizOptions;
     }
+@Transactional
+    public void saveCorrectlyAnsweredWords(Long userId, Map<String, String> quizOptions, HttpSession session) {
+        // Retrieve the user from the session
+        User user = (User) session.getAttribute("loggedInUser");
 
+    logger.info("saveCorrectlyAnsweredWords method called");
 
+        for (Map.Entry<String, String> entry : quizOptions.entrySet()) {
+            String wordIdString = entry.getKey();
+            String selectedOption = entry.getValue();
 
+            try {
+                Long wordId = Long.parseLong(wordIdString);
 
+                // Check if the selected option is correct
+                UserLearnedWords word = wordExplanationService.getUserLearnedWordById(wordId);
+                if (word != null && word.getDefinition().equals(selectedOption)) {
+                    // Create a UserProgress object and save it
+                    UserProgress userProgress = new UserProgress();
+                    userProgress.setDateOfTask(new Date()); // Set the date of the task
+                    userProgress.setWordsLearned(word.getWord()); // Set the learned word
+                    userProgress.setUser(user); // Set the user from the session
 
+                    // Log before saving
+                    logger.info("Saving user progress: {}");
 
+                    // Save the UserProgress object to the repository
+                    userProgressRepository.save(userProgress);
+
+                    logger.info("User progress saved: {}");
+                }
+            } catch (NumberFormatException e) {
+                // Handle the case where the wordIdString is not a valid Long
+                // You can log an error or handle it as needed.
+            }
+        }
+    }
 
 
 }
