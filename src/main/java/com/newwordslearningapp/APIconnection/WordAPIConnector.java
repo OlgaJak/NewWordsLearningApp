@@ -14,7 +14,7 @@ public class WordAPIConnector {
     public static String getWordFromApi() throws Exception {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://random-words5.p.rapidapi.com/getRandom"))
-                .header("X-RapidAPI-Key", "44454aefe7msh72364ecc04f75ecp146b32jsnb3e6a0977a7e")
+                .header("X-RapidAPI-Key", "e41026e7bdmsha73faa69aeff534p147528jsn3015fd02f7da")
                 .header("X-RapidAPI-Host", "random-words5.p.rapidapi.com")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
