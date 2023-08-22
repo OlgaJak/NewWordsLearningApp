@@ -1,3 +1,8 @@
+h1 {
+    color: #ffffff;
+    display: flex;
+    transform: translate(-20%, -50%); /* Adjust to center both horizontally and vertically */
+}
 body{
     margin: 0;
     padding: 0;
