@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,8 +29,16 @@ public class UserProgress {
     private User user;
 
     @OneToMany(mappedBy = "userProgress", cascade = CascadeType.ALL)
-    private List<UserLearnedWords> userLearnedWordsList;
+    private List<UserLearnedWords> userLearnedWordsList = new ArrayList<>();
 
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_test_words",
+            joinColumns = @JoinColumn(name = "user_progress_id"),
+            inverseJoinColumns = @JoinColumn(name = "word_id")
+    )
+    private List<UserLearnedWords> correctTestWordsList = new ArrayList<>();
 
 
 

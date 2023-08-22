@@ -23,12 +23,6 @@ public class QuizController {
         this.wordExplanationService = wordExplanationService;
     }
 
-
-    //  User user = new User(2L,"user2", "email2@email.com", "Password2", null);
-    // this.wordExplanationService.getFourExplanationsForWord("Wiry", user);
-    //  System.out.println("Here we display the result:");
-    // List<String> result = this.wordExplanationService.getFourExplanationsForWord("Wiry", user);
-
     @GetMapping("/quiz")
     public String quizPage(HttpSession session, Model model) {
         // Retrieve the user from the session
@@ -68,6 +62,10 @@ public class QuizController {
         }
 
         int score = calculateScore(quizOptions, user.getId());
+        List<QuizScope> quizResults = getQuizOptionsFromSession(session); // Retrieve quiz results
+        // Store quiz results in the session
+        session.setAttribute("quizResults", quizResults);
+        session.setAttribute("quizScore", score);
         session.setAttribute("quizOptions", getQuizOptionsFromSession(session)); // Store quiz options in session
 
         // Redirect to the quiz result page with the score parameter

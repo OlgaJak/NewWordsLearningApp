@@ -13,14 +13,14 @@
 
     <h1 th:if="${displayName}">Welcome, <span th:text="${displayName}"></span>!</h1>
 
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" class="btn btn-primary" value="Log Out"/>
-    </form>
-
     <a type="button" class="btn btn-primary" th:href="@{/learning}"> Start learning </a>
 
-    <form th:action="@{/progress}" method="post">
+    <form th:action="@{/progress}" method="get">
         <input type="submit" class="btn btn-primary" value="View my progress"/>
+    </form>
+
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" class="btn btn-primary" value="Log Out"/>
     </form>
 </div>
 </body>
