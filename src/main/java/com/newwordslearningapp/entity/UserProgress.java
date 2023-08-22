@@ -10,8 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@Entity(name = "user_progress")
-@Table
+@Entity
+@Table(name = "user_progress")
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserProgress {
