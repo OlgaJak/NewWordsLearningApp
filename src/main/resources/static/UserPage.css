@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Jost', sans-serif;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+}
+.card-button {
+    margin: 15px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 230px; /* Adjust the width as needed */
+    height: 200px; /* Adjust the height as needed */
+    font-family: 'Jost', sans-serif;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    border-radius: 10px;
+    box-shadow: 5px 20px 50px rgb(255, 255, 255); /* RGB shadow */
+    transition: box-shadow 0.2s ease-in-out;
+}
+.card {
+    margin: 15px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Jost', sans-serif;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Jost', sans-serif;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    margin: 0;
+}
+.btn {
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+    border: none;
+    outline: none;
+}
+.btn.btn-primary {
+    background: linear-gradient(to bottom, #0d0921, #39375e, #24243e);
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+    border: none;
+    outline: none;
+}
+.btn.btn-danger {
+    background-color: #dc3545;
+}
+.card-button:hover .btn.btn-primary {
+    animation: rgbLightning 1s infinite alternate;
+}
+@keyframes rgbLightning {
+    0%{
+        box-shadow: 0 0 10px rgb(255, 255, 255),
+        0 0 20px rgb(61, 60, 122),
+        0 0 30px rgb(22, 15, 51),
+        0 0 20px rgb(95, 62, 126),
+        0 0 30px rgb(49, 43, 87);
+    }
+    100%{
+        box-shadow: 0 0 20px rgb(95, 62, 126),
+        0 0 40px rgb(255, 255, 255),
+        0 0 60px rgb(22, 15, 51);
+    }
+}

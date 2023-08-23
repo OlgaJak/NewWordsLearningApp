@@ -6,22 +6,29 @@
     <title>Hello User!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <Link rel="stylesheet" href="/style.css">
+    <Link rel="stylesheet" href="/UserPage.css">
 </head>
 <body>
 <div class="container">
 
     <h1 th:if="${displayName}">Welcome, <span th:text="${displayName}"></span>!</h1>
 
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" class="btn btn-primary" value="Log Out"/>
-    </form>
+    <div class="card-button">
+        <a type="button" class="btn btn-primary" th:href="@{/learning}"> Start learning </a>
+    </div>
 
-    <a type="button" class="btn btn-primary" th:href="@{/learning}"> Start learning </a>
+    <div class="card-button">
+        <form th:action="@{/progress}" method="post">
+            <input type="submit" class="btn btn-primary" value="View my progress"/>
+        </form>
+        </div>
 
-    <form th:action="@{/progress}" method="post">
-        <input type="submit" class="btn btn-primary" value="View my progress"/>
-    </form>
+    <div class="card-button">
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" class="btn btn-primary" value="Log Out"/>
+        </form>
+    </div>
+
 </div>
 </body>
 </html>
