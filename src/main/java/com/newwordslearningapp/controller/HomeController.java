@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HomeController {
 
     private final UserService userService;
-
+@Autowired
     public HomeController(UserService userService) {
         this.userService = userService;
     }
@@ -29,12 +29,6 @@ public class HomeController {
         model.addAttribute("user", new User());
         return "home"; // Return the name of your HTML template
     }
-
-//    @PostMapping("/register")
-//    public String register(Model model) {
-//        model.addAttribute("user", new User());// Handle registration logic here
-//        return "redirect:/user-page"; // Redirect to the same homepage after registration
-//    }
 
     @PostMapping("/register")
     public String registrationForm(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model, HttpSession session) {
