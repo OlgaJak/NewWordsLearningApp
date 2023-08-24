@@ -84,3 +84,11 @@ body {
         0 0 60px rgb(22, 15, 51);
     }
 }
+h1 {
+    text-align: center; /* Center the text horizontally */
+    color: white; /* Set the text color to white */
+    position: absolute; /* Position the element */
+    top: 20%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center the element precisely */
+}
