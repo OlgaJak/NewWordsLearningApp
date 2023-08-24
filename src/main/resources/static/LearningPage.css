@@ -20,16 +20,20 @@ body {
     0 0 20px rgba(95, 62, 126, 0.1),
     0 0 30px rgba(49, 43, 87, 0.1);
     color: white;
+    width: 90%;
+    height: 100%;
+    margin-left: 50px;
 }
-h1 {
+.shine-text {
     color: #312b57;
-    font-size: 2em;
-    margin-bottom: 10px;
+    font-size: 3em;
+    margin-bottom: 5%;
     background: linear-gradient(90deg, #ffffff, #a45bea);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
     animation: shine 2s linear infinite alternate;
+    text-align: center; /* Center the text horizontally */
 }
 @keyframes shine {
     0% {
@@ -127,7 +131,7 @@ li {
     }
 }
 .prev-words-container {
-    text-align: left; /* Align the text to the left */
+    text-align: right; /* Align the text to the left */
     color: white; /* Text color */
     font-size: 1.2em; /* Font size */
     margin-top: 20px;
@@ -139,12 +143,13 @@ li {
     0 0 30px rgba(22, 15, 51, 0.1),
     0 0 20px rgba(95, 62, 126, 0.1),
     0 0 30px rgba(49, 43, 87, 0.1);
-    color: white;
+    display: inline-block;
+    margin-right: 50px;
 }
 .prev-words-list {
     list-style-type: none;
-    padding: 0;
-    margin: 0; /* Remove default margin */
+    padding: 10px;
+    margin: 10px; /* Remove default margin */
 }
 .btn-center {
     display: flex;
@@ -158,5 +163,15 @@ li {
     border-radius: 1rem;
     border: none;
     transition: 0.1s;
+}
+.list-name{
+    font-size: 1em;
+    margin-bottom: 5%;
+    background: linear-gradient(90deg, #ffffff, #a45bea);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: shine 2s linear infinite alternate;
+    text-align: center;
 }
 

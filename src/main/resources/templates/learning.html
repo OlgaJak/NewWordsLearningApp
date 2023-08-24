@@ -9,8 +9,9 @@
 </head>
 <body>
 <div class="container">
+    <h1 class="shine-text">Learn new words</h1>
+  <div class="main-container">
 <div class="p-2">
-    <h1 class="btn-center">Learn new words</h1>
     <h3><span th:text="${word}"></span><span class="sm-text"> (<span th:text="${partOfSpeech}"></span>)</span></h3>
     <p>Phonetic: [<span th:text="${phonetic}"></span>]</p>
     <p>Definition: <span th:text="${definition}"></span></p>
@@ -22,7 +23,8 @@
     <a href="/quiz" class="btn btn-primary" th:if="${showTestButton}">Take quiz</a>
 </form>
 </div>
-
+  </div>
+  </div>
 <a th:href="@{/user-page}" class="btn btn-primary back-button">Back</a>
 
 <form th:action="@{/logout}" method="post" class="logout-form">
@@ -30,11 +32,10 @@
 </form>
 
 <div class="prev-words-container">
-    <p>The list of previous words:</p>
+    <p class="list-name">The list of previous words:</p>
     <ul class="prev-words-list">
         <li th:each="prevWord : ${previousWords}" th:text="${prevWord}"></li>
     </ul>
-</div>
 </div>
 </body>
 </html>
