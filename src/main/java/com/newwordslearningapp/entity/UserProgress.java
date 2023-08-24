@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -18,10 +19,18 @@ public class UserProgress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @Column(name = "date_of_task")
-    private Date dateOfTask;
+
+    @Column(name = "date_of_task", columnDefinition = "TIMESTAMP(0)")
+    private Timestamp dateOfTask;
+
+    //    @Column(name = "date_of_task")
+    //    private Date dateOfTask;
     @Column(name = "words_learned")
     private String wordsLearned;
+
+    @Column(name = "definition")
+    private String definition;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -29,8 +38,4 @@ public class UserProgress {
 
     @OneToMany(mappedBy = "userProgress", cascade = CascadeType.ALL)
     private List<UserLearnedWords> userLearnedWordsList;
-
-
-
-
 }

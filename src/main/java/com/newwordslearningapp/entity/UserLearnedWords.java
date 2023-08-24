@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -16,8 +18,13 @@ public class UserLearnedWords {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "date_of_task")
-    private Date dateOfTask;
+
+    @Column(name = "date_of_task", columnDefinition = "TIMESTAMP(0)")
+    private Timestamp dateOfTask;
+
+
+    /*@Column(name = "date_of_task")
+    private Date dateOfTask;*/
     @Column(name = "word")
     private String word;
     @Column (name = "definition")

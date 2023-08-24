@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.Date;
-import java.time.LocalDate;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +54,7 @@ public class LearningController {
         if (loggedInUser == null) {
             return "redirect:/login";
         }
+
 
         // Initializing user data
         if (!userWordsListMap.containsKey(loggedInUser)) {
@@ -97,9 +101,21 @@ public class LearningController {
                 learnedWord.setDefinition(readingDataService.getDefinition());
                 learnedWord.setPhonetic(readingDataService.getPhonetic());
 
-                LocalDate currentDate = LocalDate.now();
-                Date dateOfTask = Date.valueOf(currentDate);
-                learnedWord.setDateOfTask(dateOfTask);
+// Получение текущей даты и времени
+                LocalDateTime currentDateTime = LocalDateTime.now();
+
+// Округление миллисекунд до нулей
+                currentDateTime = currentDateTime.withNano(0);
+
+// Преобразование LocalDateTime в Timestamp
+                Timestamp timestamp = Timestamp.valueOf(currentDateTime);
+
+// Форматирование Timestamp в строку без последних нулей
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String formattedTimestamp = timestamp.toLocalDateTime().format(formatter);
+
+                learnedWord.setDateOfTask(Timestamp.valueOf(formattedTimestamp));
+
 
                 learnedWord.setStatus(true);
                 learnedWord.setUser(loggedInUser);
@@ -129,6 +145,7 @@ public class LearningController {
         if (loggedInUser == null) {
             return "redirect:/login";
         }
+
 
         // Initializing user data
         if (!userWordsListMap.containsKey(loggedInUser)) {
@@ -176,9 +193,20 @@ public class LearningController {
                         learnedWord.setDefinition(readingDataService.getDefinition());
                         learnedWord.setPhonetic(readingDataService.getPhonetic());
 
-                        LocalDate currentDate = LocalDate.now();
-                        Date dateOfTask = Date.valueOf(currentDate);
-                        learnedWord.setDateOfTask(dateOfTask);
+                        // Получение текущей даты и времени
+                        LocalDateTime currentDateTime = LocalDateTime.now();
+
+// Округление миллисекунд до нулей
+                        currentDateTime = currentDateTime.withNano(0);
+
+// Преобразование LocalDateTime в Timestamp
+                        Timestamp timestamp = Timestamp.valueOf(currentDateTime);
+
+// Форматирование Timestamp в строку без последних нулей
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                        String formattedTimestamp = timestamp.toLocalDateTime().format(formatter);
+
+                        learnedWord.setDateOfTask(Timestamp.valueOf(formattedTimestamp));
 
                         learnedWord.setStatus(true);
                         learnedWord.setUser(loggedInUser);
@@ -206,6 +234,7 @@ public class LearningController {
     }
 
 }
+
 
 
 

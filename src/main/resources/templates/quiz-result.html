@@ -3,39 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Quiz Result</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <Link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<div class="p-2">
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" class="btn btn-primary" value="Log Out"/>
-    </form>
+<h1>Quiz Result</h1>
+<p>Total Questions: <span th:text="${totalQuestions}"></span></p>
+<p>Correct Answers: <span th:text="${correctAnswers}"></span></p>
+<p>Incorrect Answers: <span th:text="${incorrectAnswers}"></span></p>
 
-    <a type="button" class="btn btn-primary" th:href="@{/learning}"> Start learning </a>
+<h2>Quiz Details</h2>
+<table>
+    <tr>
+        <th>Word</th>
+        <th>Your Answer</th>
+        <th>Correct Answer</th>
+        <th>Result</th>
+    </tr>
+    <tr th:each="result, iterStat : ${quizResults}">
+        <td th:text="${result.quizScope.quizWord}"></td>
+        <td th:text="${result.userAnswer}"></td>
+        <td th:text="${result.quizScope.correctAnswer}"></td>
+        <td th:text="${result.isCorrect ? 'Correct' : 'Incorrect'}"></td>
+    </tr>
+</table>
 
-    <form th:action="@{/progress}" method="post">
-        <input type="submit" class="btn btn-primary" value="View my progress"/>
-    </form>
+<!--<a th:href="@{/user-progress}" class="btn btn-primary">View User Progress</a>-->
 
-    <div class="p-2">
-        <h1>Quiz Result</h1>
-        <p>Your Score: <span th:text="${score}"></span></p>
+<form th:action="@{/progress}" method="post">
+    <button type="submit" class="btn btn-primary">View User Progress</button>
+</form>
 
-        <th:block th:each="item, itemStat : ${quizOptions}">
-            <h2 th:text="'What is the definition of ' + ${item.getQuizWord()} + '?'"></h2>
-            <ul>
-                <li th:each="option, optionIndex : ${item.getListOfDefinitions()}">
 
-                <label th:classappend="${option == item.correctAnswer ? 'correct' : (option == itemStat.index ? 'incorrect' : '')}">
-                        <input type="radio" th:name="${'word-' + itemStat.index}" th:value="${option}" disabled/>
-                        <span th:text="${option}"></span>
-                    </label>
-                </li>
-            </ul>
-        </th:block>
-    </div>
-</div>
 </body>
 </html>

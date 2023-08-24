@@ -15,13 +15,11 @@ import java.util.List;
 @Service
 public class WordExplanationService {
 
-    private final UserLearnedWordsRepository userLearnedWordsRepository;
     private LearningRepository learningRepository;
 
     @Autowired
-    public WordExplanationService(LearningRepository learningRepository, UserLearnedWordsRepository userLearnedWordsRepository) {
+    public WordExplanationService(LearningRepository learningRepository) {
         this.learningRepository = learningRepository;
-        this.userLearnedWordsRepository = userLearnedWordsRepository;
     }
 
     public UserLearnedWords getWordForQuiz(List<UserLearnedWords> words){
@@ -54,12 +52,8 @@ public class WordExplanationService {
     public List<UserLearnedWords> getFiveWordsForQuiz(Long userId) {
         return learningRepository.findTop5ByUserIdAndStatusEqualsOrderByDateOfTaskDesc(userId, true);
     }
-
-    public UserLearnedWords getUserLearnedWordById(Long wordId) {
-        // Implement the logic to fetch a UserLearnedWords object by ID from your repository
-        return userLearnedWordsRepository.findById(wordId).orElse(null);
-    }
 }
+
 
 
 
