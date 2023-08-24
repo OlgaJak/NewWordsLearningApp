@@ -26,7 +26,7 @@ body {
 }
 .shine-text {
     color: #312b57;
-    font-size: 3em;
+    font-size: 2em;
     margin-bottom: 5%;
     background: linear-gradient(90deg, #ffffff, #a45bea);
     background-clip: text;
@@ -148,8 +148,8 @@ li {
 }
 .prev-words-list {
     list-style-type: none;
-    padding: 10px;
-    margin: 10px; /* Remove default margin */
+    padding: 20px;
+    margin: 20px; /* Remove default margin */
 }
 .btn-center {
     display: flex;
@@ -164,14 +164,5 @@ li {
     border: none;
     transition: 0.1s;
 }
-.list-name{
-    font-size: 1em;
-    margin-bottom: 5%;
-    background: linear-gradient(90deg, #ffffff, #a45bea);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: shine 2s linear infinite alternate;
-    text-align: center;
-}
+
 
