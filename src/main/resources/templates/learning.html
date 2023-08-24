@@ -5,33 +5,36 @@
     <title>Learning</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <Link rel="stylesheet" href="/style.css">
+    <Link rel="stylesheet" href="/LearningPage.css">
 </head>
 <body>
+<div class="container">
 <div class="p-2">
-    <h1>Learn new words</h1>
+    <h1 class="btn-center">Learn new words</h1>
     <h3><span th:text="${word}"></span><span class="sm-text"> (<span th:text="${partOfSpeech}"></span>)</span></h3>
     <p>Phonetic: [<span th:text="${phonetic}"></span>]</p>
     <p>Definition: <span th:text="${definition}"></span></p>
 </div>
 
-
-<p>The list of previous words:</p>
-<ul>
-    <li th:each="prevWord : ${previousWords}" th:text="${prevWord}"></li>
-</ul>
-
-<form th:action="@{/learning}" method="post">
+<div class="btn-center">
+<form th:action="@{/learning}" method="post" class="btn-center">
     <button type="submit" name="action" value="next" class="btn btn-primary" th:if="${showNextButton}">Next word</button>
     <a href="/quiz" class="btn btn-primary" th:if="${showTestButton}">Take quiz</a>
 </form>
+</div>
 
-<!--<a th:href="@{/user-page}" class="btn btn-primary">Go to Home Page</a>-->
+<a th:href="@{/user-page}" class="btn btn-primary back-button">Back</a>
 
-
-<form th:action="@{/logout}" method="post">
+<form th:action="@{/logout}" method="post" class="logout-form">
     <input type="submit" class="btn btn-primary" value="Log Out"/>
 </form>
 
+<div class="prev-words-container">
+    <p>The list of previous words:</p>
+    <ul class="prev-words-list">
+        <li th:each="prevWord : ${previousWords}" th:text="${prevWord}"></li>
+    </ul>
+</div>
+</div>
 </body>
 </html>
