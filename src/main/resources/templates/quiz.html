@@ -7,16 +7,16 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <Link rel="stylesheet" href="/QuizPage.css">
     <link rel="stylesheet" href="/LearningPage.css">
+    <link rel="stylesheet" href="/UserPage.css">
 </head>
-<body>
-<h1 class="prev-words-container">Quiz</h1>
 
+<body>
 <div class="p-2">
     <form th:action="@{/submitQuiz}" method="post">
         <th:block th:each="item, questionIndex : ${quizOptions}">
-            <h2 th:text="'Question ' + (${questionIndex.index + 1}) + ' - What is the definition of ' + ${item.getQuizWord()} + '?'"></h2>
+            <h2 class="card-button left-content"   th:text="'Question ' + (${questionIndex.index + 1}) + ' - What is the definition of ' + ${item.getQuizWord()} + '?'"></h2>
             <ul>
-                <li th:each="option : ${item.getListOfDefinitions()}">
+                <li class="card-button definition" th:each="option : ${item.getListOfDefinitions()}">
                     <label th:classappend="${score != null ? (option == item.correctAnswer ? 'correct' : (optionStat == 0 ? 'incorrect' : '')) : ''}">
                         <input type="radio" th:name="${'answer_' + questionIndex.index}" th:value="${option}"/>
                         <span th:text="${option}"></span>
