@@ -92,3 +92,14 @@ h1 {
     left: 50%; /* Center horizontally */
     transform: translate(-50%, -50%); /* Center the element precisely */
 }
+.logout-button{
+    float: right;
+    display: block;
+    font-size: 1em;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    box-shadow: 5px 10px 20px rgb(255, 255, 255); /* RGB shadow */
+    transition: box-shadow 0.2s ease-in-out;
+}
