@@ -22,12 +22,10 @@ public class UserLearnedWords {
     @Column(name = "date_of_task", columnDefinition = "TIMESTAMP(0)")
     private Timestamp dateOfTask;
 
-
-    /*@Column(name = "date_of_task")
-    private Date dateOfTask;*/
     @Column(name = "word")
     private String word;
-    @Column (name = "definition")
+    @Column(name = "definition", columnDefinition = "LONGTEXT")
+    //@Column (name = "definition")
     private String definition;
     @Column(name = "phonetic")
     private String phonetic;

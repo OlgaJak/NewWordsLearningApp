@@ -23,12 +23,11 @@ public class UserProgress {
     @Column(name = "date_of_task", columnDefinition = "TIMESTAMP(0)")
     private Timestamp dateOfTask;
 
-    //    @Column(name = "date_of_task")
-    //    private Date dateOfTask;
     @Column(name = "words_learned")
     private String wordsLearned;
 
-    @Column(name = "definition")
+    //@Column(name = "definition")
+    @Column(name = "definition", columnDefinition = "LONGTEXT")
     private String definition;
 
 

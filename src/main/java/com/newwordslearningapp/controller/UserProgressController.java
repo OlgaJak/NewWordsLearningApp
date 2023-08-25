@@ -24,13 +24,13 @@ public class UserProgressController {
 
     @PostMapping("/progress")
     public String userProgressPage(Model model, HttpSession session) {
-        // Получите пользователя из сессии
+        // Get user from session
         User user = (User) session.getAttribute("loggedInUser");
 
-        // Получите данные прогресса пользователя из базы данных
+        // Get user progress data from database
         List<UserProgress> userProgressList = userProgressService.getUserProgressByUser(user);
 
-        // Передайте данные в модель для отображения на странице
+        // Pass data to the model to display on the page
         model.addAttribute("userProgressList", userProgressList);
 
         return "progress";

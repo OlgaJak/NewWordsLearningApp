@@ -30,7 +30,7 @@ public class QuizController {
         this.userProgressService = userProgressService;
     }
 
-    private List<QuizScope> quizOptions; // Объявление переменной
+    private List<QuizScope> quizOptions;
 
     @GetMapping("/quiz")
     public String quizPage(HttpSession session, Model model) {
@@ -42,7 +42,6 @@ public class QuizController {
         }
 
         List<UserLearnedWords> fiveWordsForQuiz = this.wordExplanationService.getFiveWordsForQuiz(user.getId());
-
 
 
         ArrayList<QuizScope> quizOptions = new ArrayList<>();
@@ -62,15 +61,13 @@ public class QuizController {
 
     }
 
-
-
     @PostMapping("/submitQuiz")
     public String submitQuiz(@RequestParam Map<String, String> answers, HttpSession session, Model model) {
         List<QuizScope> quizOptions = (List<QuizScope>) session.getAttribute("quizOptions");
 
-        // Создаем список для хранения слов, которые пользователь учил во время викторины
+        // Create a list to store the words the user learned during the quiz
         List<String> wordsLearned = new ArrayList<>();
-        List<String> definitions = new ArrayList<>(); // Создаем список для определений
+        List<String> definitions = new ArrayList<>();
 
         int totalQuestions = quizOptions.size();
         int correctAnswers = 0;
@@ -87,8 +84,8 @@ public class QuizController {
 
             if (isCorrect) {
                 correctAnswers++;
-                wordsLearned.add(quizScope.getQuizWord()); // Добавляем слово в список
-                definitions.add(quizScope.getListOfDefinitions().get(i)); // Добавляем определение в список
+                wordsLearned.add(quizScope.getQuizWord()); // Adding a word to the list
+                definitions.add(quizScope.getListOfDefinitions().get(i));
             }
             quizResults.add(new QuizResult(quizScope, userAnswer, isCorrect));
         }
@@ -100,7 +97,7 @@ public class QuizController {
         model.addAttribute("incorrectAnswers", incorrectAnswers);
         model.addAttribute("quizResults", quizResults);
 
-        // Сохранение правильных ответов пользователя в базу данных
+        // Saving the user's correct answers to the database
         StringBuilder correctAnswersStringBuilder = new StringBuilder();
         for (QuizResult result : quizResults) {
             if (result.isCorrect()) {
@@ -110,7 +107,7 @@ public class QuizController {
 
         String correctAnswersStr = correctAnswersStringBuilder.toString();
         if (correctAnswersStr.length() > 2) {
-            correctAnswersStr = correctAnswersStr.substring(0, correctAnswersStr.length() - 2); // Убираем последнюю запятую и пробел
+            correctAnswersStr = correctAnswersStr.substring(0, correctAnswersStr.length() - 2); // Remove last comma and space
         }
 
         User user = (User) session.getAttribute("loggedInUser");
@@ -119,13 +116,13 @@ public class QuizController {
         userProgress.setUser(user);
         userProgress.setWordsLearned(correctAnswersStr);
 
-        userProgress.setWordsLearned(String.join(", ", wordsLearned)); // Сохраняем список слов через запятую
-        userProgress.setDefinition(String.join(", ", definitions)); // Устанавливаем определение
+        userProgress.setWordsLearned(String.join(", ", wordsLearned));
+        userProgress.setDefinition(String.join(", ", definitions));
 
-        // Сохранение в базу данных через сервис
         userProgressService.saveUserProgress(userProgress);
 
-        return "quiz-result"; // Верните имя шаблона для отображения результатов
+        return "quiz-result";
     }
 
 }
+

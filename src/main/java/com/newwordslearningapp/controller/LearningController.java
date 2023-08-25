@@ -101,16 +101,16 @@ public class LearningController {
                 learnedWord.setDefinition(readingDataService.getDefinition());
                 learnedWord.setPhonetic(readingDataService.getPhonetic());
 
-// Получение текущей даты и времени
+                // Get current date and time
                 LocalDateTime currentDateTime = LocalDateTime.now();
 
-// Округление миллисекунд до нулей
+                // Rounding milliseconds to zero
                 currentDateTime = currentDateTime.withNano(0);
 
-// Преобразование LocalDateTime в Timestamp
+                // Convert LocalDateTime to Timestamp
                 Timestamp timestamp = Timestamp.valueOf(currentDateTime);
 
-// Форматирование Timestamp в строку без последних нулей
+                // Format Timestamp to string without trailing zeros
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String formattedTimestamp = timestamp.toLocalDateTime().format(formatter);
 
@@ -193,16 +193,16 @@ public class LearningController {
                         learnedWord.setDefinition(readingDataService.getDefinition());
                         learnedWord.setPhonetic(readingDataService.getPhonetic());
 
-                        // Получение текущей даты и времени
+                        // Get current date and time
                         LocalDateTime currentDateTime = LocalDateTime.now();
 
-// Округление миллисекунд до нулей
+                        // Rounding milliseconds to zero
                         currentDateTime = currentDateTime.withNano(0);
 
-// Преобразование LocalDateTime в Timestamp
+                        // Convert LocalDateTime to Timestamp
                         Timestamp timestamp = Timestamp.valueOf(currentDateTime);
 
-// Форматирование Timestamp в строку без последних нулей
+                        // Format Timestamp to string without trailing zeros
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                         String formattedTimestamp = timestamp.toLocalDateTime().format(formatter);
 

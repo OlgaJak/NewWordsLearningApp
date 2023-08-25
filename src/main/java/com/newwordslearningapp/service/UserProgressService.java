@@ -20,12 +20,12 @@ public class UserProgressService {
         this.userProgressRepository = userProgressRepository;
     }
 
-    // Метод для получения прогресса пользователя из базы данных
+    // Method to get user's progress from database
     public List<UserProgress> getUserProgressByUser(User user) {
         return userProgressRepository.findByUser(user);
     }
 
-    // Метод для сохранения прогресса пользователя в базе данных
+    // Method for saving user's progress in database
     public void saveUserProgress(UserProgress userProgress) {
         userProgressRepository.save(userProgress);
     }
