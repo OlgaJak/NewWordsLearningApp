@@ -1,30 +1,18 @@
-.definition {
-    /* Add additional styles for card-button definition */
-    /* Modify these styles as needed */
+.left-content {
     margin: 15px;
     padding: 0;
-    display: inline-flex;
-    justify-content: center;
+    display: grid;
+    justify-content: left;
     align-items: center;
-    width: 300px; /* Adjust the width as needed */
-    height: 250px; /* Adjust the height as needed */
+    width: 300px;
+    height: 250px;
     font-family: 'Jost', sans-serif;
     background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
     border-radius: 10px;
     box-shadow: 5px 20px 50px rgb(255, 255, 255); /* RGB shadow */
     transition: box-shadow 0.2s ease-in-out;
 }
-.left-content {
-    margin: 15px;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 300px; /* Adjust the width as needed */
-    height: 250px; /* Adjust the height as needed */
-    font-family: 'Jost', sans-serif;
-    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
-    border-radius: 10px;
-    box-shadow: 5px 20px 50px rgb(255, 255, 255); /* RGB shadow */
-    transition: box-shadow 0.2s ease-in-out;
+.definition{
+    display: grid;
+    place-items: center;
 }
