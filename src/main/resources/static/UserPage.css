@@ -14,8 +14,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 230px; /* Adjust the width as needed */
-    height: 200px; /* Adjust the height as needed */
+    width: 300px; /* Adjust the width as needed */
+    height: 250px; /* Adjust the height as needed */
     font-family: 'Jost', sans-serif;
     background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
     border-radius: 10px;
@@ -75,8 +75,8 @@ body {
         box-shadow: 0 0 10px rgb(255, 255, 255),
         0 0 20px rgb(61, 60, 122),
         0 0 30px rgb(22, 15, 51),
-        0 0 20px rgb(95, 62, 126),
-        0 0 30px rgb(49, 43, 87);
+        0 0 20px rgb(241, 151, 234),
+        0 0 30px rgb(166, 42, 213);
     }
     100%{
         box-shadow: 0 0 20px rgb(95, 62, 126),
@@ -91,4 +91,17 @@ h1 {
     top: 20%; /* Center vertically */
     left: 50%; /* Center horizontally */
     transform: translate(-50%, -50%); /* Center the element precisely */
+}
+.logout-button{
+    float: right;
+    display: block;
+    font-size: 1em;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    box-shadow: 0 0 20px rgb(95, 62, 126),
+    0 0 40px rgb(255, 255, 255),
+    0 0 60px rgb(22, 15, 51); /* RGB shadow */
+    transition: box-shadow 0.2s ease-in-out;
 }

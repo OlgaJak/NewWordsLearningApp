@@ -164,5 +164,15 @@ li {
     border: none;
     transition: 0.1s;
 }
+.list-name{
+    font-size: 1.5em;
+    margin-bottom: 5%;
+    background: linear-gradient(90deg, #ffffff, #a45bea);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: shine 2s linear infinite alternate;
+    text-align: center;
+}
 
 

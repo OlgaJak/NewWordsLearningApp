@@ -62,7 +62,7 @@ public class HomeController {
         // Handle login logic here
         User user = userService.findByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
-            session.setAttribute("userDisplayname", user.getName());
+            session.setAttribute("userDisplayName", user.getName());
             session.setAttribute("loggedInUser", user);
 
             return "redirect:/user-page";

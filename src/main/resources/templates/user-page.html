@@ -8,10 +8,10 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <Link rel="stylesheet" href="/UserPage.css">
 </head>
+<h1 th:if="${displayName}">Welcome <span th:text="${displayName}"></span>!</h1>
 <body>
-<div class="container">
 
- <h1 th:if="${displayName}">Welcome, <span th:text="${displayName}"></span>!</h1>
+<div class="container">
 
     <div class="card-button">
         <a type="button" class="btn btn-primary" th:href="@{/learning}"> Start learning </a>
@@ -23,11 +23,11 @@
         </form>
         </div>
 
-    <div class="card-button">
+
         <form th:action="@{/logout}" method="post">
-            <input type="submit" class="btn btn-primary" value="Log Out"/>
+            <input type="submit" class="btn btn-primary logout-button" value="Log Out"/>
         </form>
-    </div>
+
 
 </div>
 </body>
