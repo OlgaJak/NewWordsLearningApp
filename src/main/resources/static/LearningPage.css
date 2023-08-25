@@ -102,10 +102,15 @@ li {
 .logout-form{
     float: right;
     display: block;
+    border-radius: 1rem;
     position: absolute;
     top: 10px;
     right: 10px;
     z-index: 1;
+    box-shadow: 0 0 20px rgb(95, 62, 126),
+    0 0 40px rgb(255, 255, 255),
+    0 0 60px rgb(22, 15, 51); /* RGB shadow */
+    transition: box-shadow 0.2s ease-in-out;
 }
 .btn.btn-primary:hover {
     animation: rgbLightning 1s infinite alternate;
