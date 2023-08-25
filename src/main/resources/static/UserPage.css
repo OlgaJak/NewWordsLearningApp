@@ -14,8 +14,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 230px; /* Adjust the width as needed */
-    height: 200px; /* Adjust the height as needed */
+    width: 300px; /* Adjust the width as needed */
+    height: 250px; /* Adjust the height as needed */
     font-family: 'Jost', sans-serif;
     background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
     border-radius: 10px;
