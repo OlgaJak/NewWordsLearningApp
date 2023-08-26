@@ -131,10 +131,10 @@ li {
     }
 }
 .prev-words-container {
-    text-align: right; /* Align the text to the left */
+    text-align: center; /* Align the text to the left */
     color: white; /* Text color */
     font-size: 1.2em; /* Font size */
-    margin-top: 20px;
+    margin-top: 10px;
     background: rgba(255, 255, 255, 0.1);
     padding: 20px;
     border-radius: 10px;
@@ -148,8 +148,12 @@ li {
 }
 .prev-words-list {
     list-style-type: none;
-    padding: 20px;
-    margin: 20px; /* Remove default margin */
+
+    margin: 6px; /* Remove default margin */
+    width: 229px;
+    height: 360px;
+    overflow:auto;
+
 }
 .btn-center {
     display: flex;
@@ -174,5 +178,25 @@ li {
     animation: shine 2s linear infinite alternate;
     text-align: center;
 }
+html{
+    --scrollbarBG: rgba(255, 255, 255, 0.1);;
+    --thumbBG: #191548;
+}
+.prev-words-list::-webkit-scrollbar {
+    width: 11px;
+}
+.prev-words-list {
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+.prev-words-list::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+}
+.prev-words-list::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG) ;
+    border-radius: 6px;
+    border: 3px solid var(--scrollbarBG);
+}
+
 
 
