@@ -5,6 +5,7 @@ import com.newwordslearningapp.entity.User;
 import com.newwordslearningapp.entity.UserLearnedWords;
 import com.newwordslearningapp.service.ReadingDataService;
 import com.newwordslearningapp.service.UserLearnedWordsService;
+import com.newwordslearningapp.service.UserStatisticsService;
 import com.newwordslearningapp.service.WordExplanationService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import static com.newwordslearningapp.APIconnection.WordAPIConnector.getWordFrom
 @Controller
 public class LearningController {
 
+
     private final ReadingDataService readingDataService;
     private final UserLearnedWordsService userLearnedWordsService;
 
@@ -40,6 +42,8 @@ public class LearningController {
         this.userLearnedWordsService = userLearnedWordsService;
     }
 
+    @Autowired
+    private UserStatisticsService userStatisticsService;
     //Creating lists for saving user data
     private Map<User, List<String>> userWordsListMap = new HashMap<>();
     private Map<User, Integer> userWordCountMap = new HashMap<>();
@@ -59,14 +63,18 @@ public class LearningController {
         // Initializing user data
         if (!userWordsListMap.containsKey(loggedInUser)) {
             userWordsListMap.put(loggedInUser, new ArrayList<>());
-            userWordCountMap.put(loggedInUser, 0);
+            //userWordCountMap.put(loggedInUser, 0);
+            userStatisticsService.initializeUserProgress(loggedInUser); //added
+
             userShowNextButtonMap.put(loggedInUser, true);
             userShowTestButtonMap.put(loggedInUser, false);
         }
 
         // Get user data
         List<String> wordsList = userWordsListMap.get(loggedInUser);
-        int wordCount = userWordCountMap.get(loggedInUser);
+       // int wordCount = userWordCountMap.get(loggedInUser);
+        int wordCount = userStatisticsService.getUserWordCount(loggedInUser); //added
+
         boolean showNextButton = userShowNextButtonMap.get(loggedInUser);
         boolean showTestButton = userShowTestButtonMap.get(loggedInUser);
 
@@ -122,7 +130,8 @@ public class LearningController {
 
                 // Save learned word
                 userLearnedWordsService.saveLearnedWord(learnedWord);
-                System.out.println("Saving learned word for user: " + loggedInUser.getEmail());
+
+                userStatisticsService.incrementUserWordCount(loggedInUser);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -132,6 +141,7 @@ public class LearningController {
         if (wordCount >= 5) {
             model.addAttribute("showNextButton", false);
             model.addAttribute("showTestButton", true);
+          //  userStatisticsService.resetUserWordCount(loggedInUser); added
         }
 
         return "learning";

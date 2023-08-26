@@ -6,6 +6,7 @@ import com.newwordslearningapp.entity.User;
 import com.newwordslearningapp.entity.UserLearnedWords;
 import com.newwordslearningapp.entity.UserProgress;
 import com.newwordslearningapp.service.UserProgressService;
+import com.newwordslearningapp.service.UserStatisticsService;
 import com.newwordslearningapp.service.WordExplanationService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class QuizController {
         this.userProgressService = userProgressService;
     }
 
+    @Autowired
+    private UserStatisticsService userStatisticsService;
     private List<QuizScope> quizOptions;
 
     @GetMapping("/quiz")
@@ -62,6 +65,7 @@ public class QuizController {
     }
 
     @PostMapping("/submitQuiz")
+
     public String submitQuiz(@RequestParam Map<String, String> answers, HttpSession session, Model model) {
         List<QuizScope> quizOptions = (List<QuizScope>) session.getAttribute("quizOptions");
 
@@ -120,6 +124,7 @@ public class QuizController {
         userProgress.setDefinition(String.join(", ", definitions));
 
         userProgressService.saveUserProgress(userProgress);
+        userStatisticsService.resetUserWordCount(user);
 
         return "quiz-result";
     }
