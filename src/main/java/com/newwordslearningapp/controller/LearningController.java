@@ -173,11 +173,13 @@ public class LearningController {
         if ("next".equals(action)) {
             if (wordCount < 5) {
                 try {
-                    String jsonString = WordAPIConnector.getRandomWordAndExplanationFromApi();
-                    readingDataService.readData(jsonString);
+                  //  String jsonString = WordAPIConnector.getRandomWordAndExplanationFromApi();
+                   // readingDataService.readData(jsonString);
+                    readingDataService.fetchNewRandomWordData();
                     String upperCaseWord = readingDataService.getWord().substring(0, 1).toUpperCase() + readingDataService.getWord().substring(1);
 
-                    if (!jsonString.contains("No Definitions Found")) {
+                  //  if (!jsonString.contains("No Definitions Found")) {
+
                         model.addAttribute("showNextButton", true);
                         model.addAttribute("showTestButton", false);
 
@@ -223,9 +225,9 @@ public class LearningController {
                         // Save learned word
                         userLearnedWordsService.saveLearnedWord(learnedWord);
                         System.out.println("Saving learned word for user: " + loggedInUser.getEmail());
-                    } else {
-                        return "redirect:/learning";
-                    }
+                   // } else {
+                   //     return "redirect:/learning";
+                  //  }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

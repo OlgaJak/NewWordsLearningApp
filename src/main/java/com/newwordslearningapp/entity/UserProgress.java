@@ -30,7 +30,6 @@ public class UserProgress {
     @Column(name = "definition", columnDefinition = "LONGTEXT")
     private String definition;
 
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
