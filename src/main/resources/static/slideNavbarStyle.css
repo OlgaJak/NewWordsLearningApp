@@ -175,18 +175,3 @@ button:hover{
     animation-delay: 2.75s;
     animation-duration: 2.75s;
 }
-
-.star:nth-child(4) {
-    top: 0;
-    right: -220px;
-    left: initial;
-    animation-delay: 1.6s;
-    animation-duration: 1.6s;
-}
-.star:nth-child(5) {
-    top: 0;
-    right: 50px;
-    left: initial;
-    animation-delay: 1.6s;
-    animation-duration: 1.6s;
-}
