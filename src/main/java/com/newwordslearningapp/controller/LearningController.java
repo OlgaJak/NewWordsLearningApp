@@ -80,9 +80,8 @@ public class LearningController {
 
         if (showNextButton && wordCount < 5) {
             try {
-                String randomWord = getWordFromApi();
-                String jsonString = getWordAndExplanationFormApi(randomWord);
-                readingDataService.readData(jsonString);
+
+                readingDataService.fetchNewRandomWordData();
                 String upperCaseWord = readingDataService.getWord().substring(0, 1).toUpperCase() + readingDataService.getWord().substring(1);
 
                 model.addAttribute("showNextButton", true);

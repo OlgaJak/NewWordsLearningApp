@@ -45,7 +45,7 @@ public class ReadingDataService {
         }
     }
 
-    private void fetchNewRandomWordData() {
+    public void fetchNewRandomWordData() {
         try {
             String newRandomWord = WordAPIConnector.getWordFromApi();
             String newRandomWordData = WordAPIConnector.getWordAndExplanationFormApi(newRandomWord);
