@@ -5,35 +5,38 @@
     <title>Test Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <Link rel="stylesheet" href="/style.css">
+    <Link rel="stylesheet" href="/QuizPage.css">
+
 </head>
+
 <body>
-<div class="p-2">
-    <h1>Quiz</h1>
+<div class="container">
     <form th:action="@{/submitQuiz}" method="post">
         <th:block th:each="item, questionIndex : ${quizOptions}">
-            <h2 th:text="'Question ' + (${questionIndex.index + 1}) + ' - What is the definition of ' + ${item.getQuizWord()} + '?'"></h2>
-            <ul>
-                <li th:each="option : ${item.getListOfDefinitions()}">
-                    <label th:classappend="${score != null ? (option == item.correctAnswer ? 'correct' : (optionStat == 0 ? 'incorrect' : '')) : ''}">
-                        <input type="radio" th:name="${'answer_' + questionIndex.index}" th:value="${option}"/>
-                        <span th:text="${option}"></span>
-                        <span th:if="${score != null && option == item.correctAnswer}">
+            <div class="card" >
+
+                <h2 th:text="(${questionIndex.index + 1}) + ' - What is the definition of ' + ${item.getQuizWord()} + '?'"></h2>
+
+                <ul>
+                    <li th:each="option : ${item.getListOfDefinitions()}">
+                        <label th:classappend="${score != null ? (option == item.correctAnswer ? 'correct' : (optionStat == 0 ? 'incorrect' : '')) : ''}">
+                            <input type="radio" th:name="${'answer_' + questionIndex.index}" th:value="${option}"/>
+                            <span th:text="${option}"></span>
+                            <span th:if="${score != null && option == item.correctAnswer}">
                         <span>&#10004;</span>
                     </span>
-                    </label>
-                </li>
-            </ul>
+                        </label>
+                    </li>
+
+                </ul>
+            </div>
         </th:block>
-        <button type="submit">Submit Quiz</button>
+        <button type="submit" class="submit-button">Submit Quiz</button>
     </form>
-
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" class="btn btn-primary" value="Log Out"/>
-    </form>
-
-
 </div>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" class="logout-form" value="Log Out"/>
+</form>
 </body>
 </html>
 
