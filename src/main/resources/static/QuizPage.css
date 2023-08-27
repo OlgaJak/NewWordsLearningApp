@@ -1,18 +1,21 @@
-.left-content {
-    margin: 15px;
+.card {
+    border-radius: 20px;
+    margin-left: 10px;
+    height: 200px;
+    background-color: white;
+    flex:1;
     padding: 0;
-    display: grid;
-    justify-content: left;
-    align-items: center;
-    width: 300px;
-    height: 250px;
+    transition: .3s all ease;
     font-family: 'Jost', sans-serif;
-    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
-    border-radius: 10px;
-    box-shadow: 5px 20px 50px rgb(255, 255, 255); /* RGB shadow */
-    transition: box-shadow 0.2s ease-in-out;
+
+    box-shadow: 5px 20px 20px rgb(255, 255, 255); /* RGB shadow */
+
 }
-.definition{
-    display: grid;
-    place-items: center;
+.card:hover{
+    flex: 2;
+    background-color: rgb(74, 74, 110);
+
+}
+.container{
+    display: flex;
 }
