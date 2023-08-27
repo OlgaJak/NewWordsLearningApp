@@ -158,7 +158,7 @@ public class QuizController {
         }
 
         // Build a comma-separated string of correct word-definition pairs
-        String correctPairsStr = String.join(", ", correctPairs);
+        String correctPairsStr = String.join("\n ", correctPairs);
 
         // Save user progress to the database
         UserProgress userProgress = new UserProgress();
