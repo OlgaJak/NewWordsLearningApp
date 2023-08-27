@@ -65,69 +65,53 @@ public class QuizController {
     }
 
     @PostMapping("/submitQuiz")
-
     public String submitQuiz(@RequestParam Map<String, String> answers, HttpSession session, Model model) {
         List<QuizScope> quizOptions = (List<QuizScope>) session.getAttribute("quizOptions");
-
-        // Create a list to store the words the user learned during the quiz
+        // Создаем список для хранения слов, которые пользователь учил во время викторины
         List<String> wordsLearned = new ArrayList<>();
-        List<String> definitions = new ArrayList<>();
-
+        List<String> definitions = new ArrayList<>(); // Создаем список для определений
         int totalQuestions = quizOptions.size();
         int correctAnswers = 0;
         List<QuizResult> quizResults = new ArrayList<>();
-
         for (int i = 0; i < quizOptions.size(); i++) {
             QuizScope quizScope = quizOptions.get(i);
             String userAnswer = answers.get("answer_" + i);
-
             System.out.println("User Answer: " + userAnswer);
             System.out.println("Correct Answer: " + quizScope.getCorrectAnswer());
-
             boolean isCorrect = userAnswer != null && userAnswer.equals(quizScope.getCorrectAnswer());
-
             if (isCorrect) {
                 correctAnswers++;
-                wordsLearned.add(quizScope.getQuizWord()); // Adding a word to the list
-                definitions.add(quizScope.getListOfDefinitions().get(i));
+                wordsLearned.add(quizScope.getQuizWord()); // Добавляем слово в список
+                definitions.add(quizScope.getListOfDefinitions().get(i)); // Добавляем определение в список
             }
             quizResults.add(new QuizResult(quizScope, userAnswer, isCorrect));
         }
-
         int incorrectAnswers = totalQuestions - correctAnswers;
-
         model.addAttribute("totalQuestions", totalQuestions);
         model.addAttribute("correctAnswers", correctAnswers);
         model.addAttribute("incorrectAnswers", incorrectAnswers);
         model.addAttribute("quizResults", quizResults);
-
-        // Saving the user's correct answers to the database
+        // Сохранение правильных ответов пользователя в базу данных
         StringBuilder correctAnswersStringBuilder = new StringBuilder();
         for (QuizResult result : quizResults) {
             if (result.isCorrect()) {
                 correctAnswersStringBuilder.append(result.getQuizScope().getCorrectAnswer()).append(", ");
             }
         }
-
         String correctAnswersStr = correctAnswersStringBuilder.toString();
         if (correctAnswersStr.length() > 2) {
-            correctAnswersStr = correctAnswersStr.substring(0, correctAnswersStr.length() - 2); // Remove last comma and space
+            correctAnswersStr = correctAnswersStr.substring(0, correctAnswersStr.length() - 2); // Убираем последнюю запятую и пробел
         }
-
         User user = (User) session.getAttribute("loggedInUser");
         UserProgress userProgress = new UserProgress();
         userProgress.setDateOfTask(new Timestamp(System.currentTimeMillis()));
         userProgress.setUser(user);
         userProgress.setWordsLearned(correctAnswersStr);
-
-        userProgress.setWordsLearned(String.join(", ", wordsLearned));
-        userProgress.setDefinition(String.join(", ", definitions));
-
+        userProgress.setWordsLearned(String.join(", ", wordsLearned)); // Сохраняем список слов через запятую
+        userProgress.setDefinition(String.join(", ", definitions)); // Устанавливаем определение
+        // Сохранение в базу данных через сервис
         userProgressService.saveUserProgress(userProgress);
-        userStatisticsService.resetUserWordCount(user);
-
-        return "quiz-result";
+        return "quiz-result"; // Верните имя шаблона для отображения результатов
     }
-
 }
 
