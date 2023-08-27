@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS UserProgress (
 CREATE TABLE IF NOT EXISTS UserLearnedWords (
     userID INT,
     dateOfTask DATE,
-    word VARCHAR(255) NOT NULL,
+    word TEXT NOT NULL,
     explanation TEXT,
     PRIMARY KEY (userID, dateOfTask, word),
     FOREIGN KEY (userID) REFERENCES Users(userID)

@@ -24,7 +24,7 @@ public class UserLearnedWords {
 
     @Column(name = "word")
     private String word;
-    @Column(name = "definition", columnDefinition = "LONGTEXT")
+    @Column(name = "definition", columnDefinition = "TEXT")
     //@Column (name = "definition")
     private String definition;
     @Column(name = "phonetic")
