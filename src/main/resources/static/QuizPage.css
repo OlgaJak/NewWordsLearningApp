@@ -17,6 +17,7 @@
 
 }
 
+
 .card:hover {
     flex: 2;
     background-color: #766f9f;
@@ -37,10 +38,17 @@ body{
     background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 
 }
+.card h2{
+    font-size:1.4em;
+}
 .card ul {
     margin-top: 0;
     margin-bottom: 1rem;
     list-style-type: none;
+    font-size:1em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .logout-form{
