@@ -7,13 +7,75 @@
 </head>
 <body>
 <h1>Quiz Result</h1>
-<p>Total Questions: <span th:text="${totalQuestions}"></span></p>
-<p>Correct Answers: <span th:text="${correctAnswers}"></span></p>
-<p>Incorrect Answers: <span th:text="${incorrectAnswers}"></span></p>
+<div class="card-container">
+    <div class="confetti">
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+        <div class="confetti-piece"></div>
+    </div>
+    <div class="results-summary-container__result">
+        <div class="heading-tertiary">Your Result</div>
+        <div class="result-box">
+            <div class="heading-primary" th:text="${correctAnswers}"></div>
+            <p class="result">of <bold>5</bold></p>
+        </div>
+        <div class="result-text-box">
+            <div class="heading-secondary">Great!</div>
+        </div>
+    </div>
 
+    <div class="results-summary-container__options">
+        <div class="heading-secondary heading-secondary--blue">Summary</div>
+        <div class="summary-result-options">
+            <div class="result-option result-option-memory">
+                <div class="icon-box">
+                    <span class="memory-icon-text">Questions total: 5</span>
+                </div>
+
+            </div>
+            <div class="result-option result-option-verbal">
+                <div class="icon-box">
+                    <span class="memory-icon-text">Correct answers:</span>
+                    <span class="verbal-icon-text" th:text="${correctAnswers}">Correct answers:</span>
+                </div>
+
+            </div>
+            <div class="result-option result-option-Visual">
+                <div class="icon-box">
+                    <span class="memory-icon-text">Incorrect answers:</span>
+                    <span class="visual-icon-text" th:text="${incorrectAnswers}">Incorrect answers:</span>
+                </div>
+
+            </div>
+            <div class="summary__cta">
+
+            </div>
+
+<!--<p>Total Questions: <span th:text="${totalQuestions}"></span></p>-->
+<!--<p>Correct Answers: <span th:text="${correctAnswers}"></span></p>-->
+<!--<p>Incorrect Answers: <span th:text="${incorrectAnswers}"></span></p>-->
+</div>
+    </div>
+</div>
 <h2>Quiz Details</h2>
 <table>
-    <tr>
+    <tr class="table-headers">
         <th>Word</th>
         <th>Your Answer</th>
         <th>Correct Answer</th>
@@ -27,11 +89,13 @@
     </tr>
 </table>
 
-
 <form th:action="@{/progress}" method="post">
-    <button type="submit" class="btn btn-primary">My Progress</button>
+    <button type="submit" class="submit-button">My Progress</button>
 </form>
 
+<form th:action="@{/logout}" method="post">
+    <input type="submit" class="logout-form" value="Log Out"/>
+</form>
 
 </body>
 </html>
