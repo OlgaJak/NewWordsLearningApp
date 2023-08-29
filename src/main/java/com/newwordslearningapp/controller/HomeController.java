@@ -24,7 +24,7 @@ public class HomeController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping({"/home", "/"})
     public String showHomePage(Model model) {
         model.addAttribute("user", new User());
         return "home"; // Return the name of your HTML template
