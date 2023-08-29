@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>New Words Learning App</title>
@@ -26,10 +26,11 @@
     </div>
 
     <div class="login">
-        <div th:if="${errorMessage}" class="error-message">
-            <p th:text="${errorMessage}"></p>
-        </div>
+
         <form th:action="@{/login}" method="post">
+            <div id="error-message" th:if="${errorMessage}" class="error-message">
+                <p th:text="${errorMessage}"></p>
+            </div>
             <label for="chk" aria-hidden="true">Login</label>
 
             <input type="email" id="email" name="email" placeholder="Email" required="" autocomplete="email">
