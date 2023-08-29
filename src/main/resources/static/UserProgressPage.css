@@ -1,0 +1,34 @@
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Jost', sans-serif;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+}
+h1 {
+   color:white;
+
+}
+
+table{
+    text-align: center; /* Align the text to the left */
+    color: white; /* Text color */
+    font-size: 1.2em; /* Font size */
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1),
+    0 0 20px rgba(61, 60, 122, 0.1),
+    0 0 30px rgba(22, 15, 51, 0.1),
+    0 0 20px rgba(95, 62, 126, 0.1),
+    0 0 30px rgba(49, 43, 87, 0.1);
+    display: inline-block;
+    margin-right: 50px;
+}
+.table-headers-progress{
+
+}
