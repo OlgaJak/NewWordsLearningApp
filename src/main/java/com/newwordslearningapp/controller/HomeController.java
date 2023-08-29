@@ -69,7 +69,7 @@ public class HomeController {
 
         } else {
             model.addAttribute("errorMessage", "Invalid email or password.");
-            return "home";
+            return "redirect:/home";
         }
 
     }
