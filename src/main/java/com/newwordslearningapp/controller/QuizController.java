@@ -114,6 +114,63 @@ public class QuizController {
 //        return "quiz-result";
 //    }
 
+//    @PostMapping("/submitQuiz")
+//    public String submitQuiz(@RequestParam Map<String, String> answers, HttpSession session, Model model) {
+//        List<QuizScope> quizOptions = (List<QuizScope>) session.getAttribute("quizOptions");
+//        List<String> correctPairs = new ArrayList<>(); // Create a list to store correct word-definition pairs
+//        int totalQuestions = quizOptions.size();
+//        int correctAnswers = 0;
+//        List<QuizResult> quizResults = new ArrayList<>();
+//
+//        for (int i = 0; i < quizOptions.size(); i++) {
+//            QuizScope quizScope = quizOptions.get(i);
+//            String userAnswer = answers.get("answer_" + i);
+//            System.out.println("User Answer: " + userAnswer);
+//            System.out.println("Correct Answer: " + quizScope.getCorrectAnswer());
+//            boolean isCorrect = userAnswer != null && userAnswer.equals(quizScope.getCorrectAnswer());
+//
+//            if (isCorrect) {
+//                correctAnswers++;
+//                correctPairs.add(quizScope.getQuizWord() + " - " + quizScope.getCorrectAnswer());
+//            }
+//
+//            quizResults.add(new QuizResult(quizScope, userAnswer, isCorrect));
+//        }
+//
+//        int incorrectAnswers = totalQuestions - correctAnswers;
+//        model.addAttribute("totalQuestions", totalQuestions);
+//        model.addAttribute("correctAnswers", correctAnswers);
+//        model.addAttribute("incorrectAnswers", incorrectAnswers);
+//        model.addAttribute("quizResults", quizResults);
+//
+//        User user = (User) session.getAttribute("loggedInUser");
+//
+//        // Build a comma-separated string of correct answers
+//        StringBuilder correctAnswersStringBuilder = new StringBuilder();
+//        for (QuizResult result : quizResults) {
+//            if (result.isCorrect()) {
+//                correctAnswersStringBuilder.append(result.getQuizScope().getCorrectAnswer()).append("\n ");
+//            }
+//        }
+//        String correctAnswersStr = correctAnswersStringBuilder.toString();
+//        if (correctAnswersStr.length() > 2) {
+//            correctAnswersStr = correctAnswersStr.substring(0, correctAnswersStr.length() - 2); // Remove last comma and space
+//        }
+//
+//        // Build a comma-separated string of correct word-definition pairs
+//        String correctPairsStr = String.join("\n ", correctPairs);
+//
+//        // Save user progress to the database
+//        UserProgress userProgress = new UserProgress();
+//        userProgress.setDateOfTask(new Timestamp(System.currentTimeMillis()));
+//        userProgress.setUser(user);
+//        userProgress.setWordsLearned(correctPairsStr);
+//
+//        userProgressService.saveUserProgress(userProgress);
+//
+//        return "quiz-result";
+//    }
+
     @PostMapping("/submitQuiz")
     public String submitQuiz(@RequestParam Map<String, String> answers, HttpSession session, Model model) {
         List<QuizScope> quizOptions = (List<QuizScope>) session.getAttribute("quizOptions");
@@ -145,32 +202,18 @@ public class QuizController {
 
         User user = (User) session.getAttribute("loggedInUser");
 
-        // Build a comma-separated string of correct answers
-        StringBuilder correctAnswersStringBuilder = new StringBuilder();
-        for (QuizResult result : quizResults) {
-            if (result.isCorrect()) {
-                correctAnswersStringBuilder.append(result.getQuizScope().getCorrectAnswer()).append("\n ");
-            }
+        // Save each correct word-definition pair as a separate entry in the database
+        for (String pair : correctPairs) {
+            UserProgress userProgress = new UserProgress();
+            userProgress.setDateOfTask(new Timestamp(System.currentTimeMillis()));
+            userProgress.setUser(user);
+            userProgress.setWordsLearned(pair);
+
+            userProgressService.saveUserProgress(userProgress);
         }
-        String correctAnswersStr = correctAnswersStringBuilder.toString();
-        if (correctAnswersStr.length() > 2) {
-            correctAnswersStr = correctAnswersStr.substring(0, correctAnswersStr.length() - 2); // Remove last comma and space
-        }
-
-        // Build a comma-separated string of correct word-definition pairs
-        String correctPairsStr = String.join("\n ", correctPairs);
-
-        // Save user progress to the database
-        UserProgress userProgress = new UserProgress();
-        userProgress.setDateOfTask(new Timestamp(System.currentTimeMillis()));
-        userProgress.setUser(user);
-        userProgress.setWordsLearned(correctPairsStr);
-
-        userProgressService.saveUserProgress(userProgress);
 
         return "quiz-result";
     }
-
 
 }
 

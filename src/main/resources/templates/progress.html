@@ -2,30 +2,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <Link rel="stylesheet" href="/UserProgressPage.css">
     <title>User Progress</title>
 </head>
+<header>
+    <form th:action="@{/user-page}" method="get">
+        <button type="submit" class="btn-primary">Back Home</button>
+        <h1>Your Progress</h1>
+    </form>
+</header>
 <body>
-<h1>User Progress</h1>
+<div class="table-div">
 <table>
     <tr class="table-headers-progress">
-        <th>Date</th>
         <th>Words Learned</th>
-        <th>Definitions</th>
     </tr>
     <tr th:each="userProgress : ${userProgressList}">
-        <td th:text="${userProgress.dateOfTask}"></td>
         <td th:text="${userProgress.wordsLearned}"></td>
-        <td th:text="${userProgress.definition}"></td>
     </tr>
 </table>
-
-<form th:action="@{/user-page}" method="get">
-    <button type="submit" class="btn btn-primary">Back Home</button>
-</form>
-
+</div>
 
 </body>
 </html>
