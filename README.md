@@ -26,5 +26,9 @@ Learn new words:
 Test: 
 Randomizer selects 1 word of the learned ones: and all the previous words explanations
 The user has to pick the correct explanation matching the word.
+`  `
+
+https://github.com/OlgaJak/NewWordsLearningApp/assets/116429024/00baa86d-5c26-4cf6-b96f-3a5e275c7ec4
+
 
 
