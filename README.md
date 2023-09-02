@@ -22,7 +22,7 @@ To check progress:
 From SQL previous results by day
 
 Learn new words:
-5 new words with explanations + pictures + examples of usage
+5 new words with explanations 
 Test: 
 Randomizer selects 1 word of the learned ones: and all the previous words explanations
 The user has to pick the correct explanation matching the word.
